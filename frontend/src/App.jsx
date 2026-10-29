@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import Welcome from "./pages/Welcome";
+import Welcome from "./pages/welcome/Welcome";
 
 const destinations = {
   public: {

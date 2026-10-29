@@ -262,6 +262,12 @@ button:focus-visible {
   color: var(--secondary);
 }
 
+.mini-four {
+  bottom: 65px;
+  right: 20%;
+  color: var(--text);
+}
+
 .personal-illustration {
   color: var(--turquoise);
 }

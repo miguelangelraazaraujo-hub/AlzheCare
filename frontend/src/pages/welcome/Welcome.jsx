@@ -102,9 +102,10 @@ export default function Welcome({ onNavigate }) {
                         strokeLinecap="round" />
                     </svg>
                   </div>
-                  <div className="feature-mini mini-one">Artículos</div>
+                  <div className="feature-mini mini-one">Tratamientos</div>
                   <div className="feature-mini mini-two">Cuidados</div>
                   <div className="feature-mini mini-three">Noticias</div>
+                  <div className="feature-mini mini-four">Asistencia</div>
                 </div>
               )}
 
@@ -163,14 +164,7 @@ export default function Welcome({ onNavigate }) {
         ) : (
           <div className="access-screen">
             <div className="access-icon">
-              <svg viewBox="0 0 80 80" fill="none">
-                <path
-                  d="M40 67S10 49 10 28a17 17 0 0 1 30-11 17 17 0 0 1 30 11c0 21-30 39-30 39Z"
-                  stroke="currentColor"
-                  strokeWidth="3"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <img src="src/assets/AlzheCare.png" height={70} width={70}/>
             </div>
 
             <span className="welcome-eyebrow">EMPIEZA CUANDO QUIERAS</span>
