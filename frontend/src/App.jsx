@@ -1,44 +1,63 @@
 
-import { useState } from "react";
-import Welcome from "./pages/welcome/Welcome";
+import { Navigate, Route, Routes, useNavigate } from "react-router";
+import Welcome from "./pages/Welcome";
+import PublicHome from "./pages/public/PublicHome";
+import PlaceholderPage from "./components/common/PlaceholderPage";
 
-const destinations = {
-  public: {
-    title: "Información pública",
-    description: "Aquí incorporaremos el buscador, las categorías y los artículos.",
-  },
-  login: {
-    title: "Iniciar sesión",
-    description: "Aquí incorporaremos el formulario de acceso de AlzheCare.",
-  },
-  register: {
-    title: "Crear cuenta",
-    description: "Aquí incorporaremos el registro de pacientes y cuidadores.",
-  },
-};
+function WelcomeRoute() {
+  const navigate = useNavigate();
+
+  const handleNavigate = (destination) => {
+    const routes = {
+      public: "/publico",
+      login: "/login",
+      register: "/registro",
+    };
+
+    navigate(routes[destination] ?? "/");
+  };
+
+  return <Welcome onNavigate={handleNavigate} />;
+}
 
 export default function App() {
-  const [destination, setDestination] = useState(null);
-
-  if (!destination) {
-    return <Welcome onNavigate={setDestination} />;
-  }
-
-  const page = destinations[destination];
-
   return (
-    <main className="welcome-page">
-      <section className="welcome-card access-screen">
-        <span className="welcome-eyebrow">ALZHECARE</span>
-        <h1>{page.title}</h1>
-        <p className="access-description">{page.description}</p>
-        <button
-          className="primary-button"
-          onClick={() => setDestination(null)}
-        >
-          Volver al inicio
-        </button>
-      </section>
-    </main>
+    <Routes>
+      <Route path="/" element={<WelcomeRoute />} />
+
+      <Route path="/publico" element={<PublicHome />} />
+
+      <Route
+        path="/publico/categorias"
+        element={<PlaceholderPage title="Categorías" />}
+      />
+      <Route
+        path="/publico/busqueda"
+        element={<PlaceholderPage title="Buscar información" />}
+      />
+      <Route
+        path="/publico/resultados"
+        element={<PlaceholderPage title="Resultados de búsqueda" />}
+      />
+      <Route
+        path="/publico/articulo/:id"
+        element={<PlaceholderPage title="Detalle del artículo" />}
+      />
+      <Route
+        path="/publico/ayuda"
+        element={<PlaceholderPage title="Ayuda" />}
+      />
+
+      <Route
+        path="/login"
+        element={<PlaceholderPage title="Iniciar sesión" />}
+      />
+      <Route
+        path="/registro"
+        element={<PlaceholderPage title="Crear cuenta" />}
+      />
+
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
