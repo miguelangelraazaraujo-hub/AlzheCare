@@ -221,17 +221,39 @@ Durante esta primera entrega se ha trabajado en la materialización de la propue
 
 El prototipado permite comprobar la distribución de los elementos, la jerarquía visual y la facilidad de navegación antes de incorporar funcionalidades más complejas.
 
-### Página de inicio
+![Boceto de AlzheCare](./screenshots/boceto.png)
 
-En este apartado se incluirán capturas de pantalla de la página de inicio desarrollada.
+![Diseño bienvenida con Figma de AlzheCare](./screenshots/diseñoBienvenida.png)
+
+![Diseño inicio con Figma de AlzheCare](./screenshots/diseñoInicioPubli.png)
+
+### Página de inicio
 
 ![Página de inicio de AlzheCare](./screenshots/inicio.png)
 
 ### Navegación
 
-Se incluirán capturas que permitan visualizar la navegación entre las diferentes secciones implementadas.
+#### Bienvenida
 
-![Navegación de AlzheCare](./screenshots/navegacion.png)
+![Bienvenida slide 1](./screenshots/bienvenida1.png)
+![Bienvenida slide 2](./screenshots/bienvenida2.png)
+![Bienvenida slide 3](./screenshots/bienvenida3.png)
+
+#### Acciones de acceso
+
+![Acciones de acceso](./screenshots/opcionesAcceso.png)
+
+#### Opción inválida
+
+![Opción inválida](./screenshots/opcionNoImplementada.png)
+
+#### Inicio público
+
+![Inicio público](./screenshots/inicio.png)
+
+#### Futura implementación
+
+![Futura implementación](./screenshots/futuraImplementacion.png)
 
 ---
 
