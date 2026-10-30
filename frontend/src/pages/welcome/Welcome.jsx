@@ -46,7 +46,7 @@ export default function Welcome({ onNavigate }) {
         <header className="welcome-header">
           <div className="brand">
             <div className="brand-mark" aria-hidden="true">
-              <img src="src/assets/AlzheCare.png" height={39} width={39}/>
+              <img src="src/assets/AlzheCare.png" height={35} width={35}/>
             </div>
             <span>AlzheCare</span>
           </div>

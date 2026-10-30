@@ -1,7 +1,7 @@
 
 import { Navigate, Route, Routes, useNavigate } from "react-router";
-import Welcome from "./pages/Welcome";
-import PublicHome from "./pages/public/PublicHome";
+import Welcome from "./pages/welcome/Welcome";
+import PublicHome from "./pages/public-home/PublicHome";
 import PlaceholderPage from "./components/common/PlaceholderPage";
 
 function WelcomeRoute() {
