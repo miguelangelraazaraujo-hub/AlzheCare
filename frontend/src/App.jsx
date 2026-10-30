@@ -9,6 +9,7 @@ function WelcomeRoute() {
 
   const handleNavigate = (destination) => {
     const routes = {
+      welcome: "/bienvenida",
       public: "/publico",
       login: "/login",
       register: "/registro",
@@ -24,6 +25,8 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<WelcomeRoute />} />
+
+      <Route path="/bienvenida" element={<WelcomeRoute />} />
 
       <Route path="/publico" element={<PublicHome />} />
 
