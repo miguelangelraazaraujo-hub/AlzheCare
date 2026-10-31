@@ -1,19 +1,10 @@
-import { useState, useEffect } from "react";
+import { useTheme } from "../../contexts/ThemeContext";
 
 function ModeSwitch() {
-  const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem("theme") === "dark";
-  });
-
-  useEffect(() => {
-    const theme = darkMode ? "dark" : "light";
-
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-  }, [darkMode]);
+  const { darkMode, toggleTheme } = useTheme();
 
   return (
-    <button className="switch-mode" onClick={() => setDarkMode(!darkMode)}>
+    <button className="switch-mode" onClick={toggleTheme}>
       {darkMode ? "☀️ " : "🌙 "}
     </button>
   );
