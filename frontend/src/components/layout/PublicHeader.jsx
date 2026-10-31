@@ -1,5 +1,6 @@
 
 import { Link } from "react-router";
+import ModeSwitch from "../common/ModeSwitch";
 
 export default function PublicHeader() {
   return (
@@ -11,9 +12,11 @@ export default function PublicHeader() {
         <span>AlzheCare</span>
       </Link>
 
+      <ModeSwitch />
+
       <Link to="/login" className="account-link">
         <span className="account-icon" aria-hidden="true">○</span>
-        <span>Mi cuenta</span>
+        <span>Invitado</span>
       </Link>
     </header>
   );
