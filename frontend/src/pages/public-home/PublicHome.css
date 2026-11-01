@@ -32,7 +32,7 @@
   display: grid;
   place-items: center;
   border-radius: 11px;
-  background: #eef0ff;
+  background: var(--logo);
   font-size: 27px;
   font-weight: 500;
 }

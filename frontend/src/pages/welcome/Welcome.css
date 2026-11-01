@@ -5,8 +5,8 @@
   place-items: center;
   padding: 28px;
   background:
-    radial-gradient(ellipse at 12% 15%, #e9ebff 0, transparent 36%),
-    radial-gradient(ellipse at 88% 85%, #e3f7f4 0, transparent 32%),
+    radial-gradient(ellipse at 12% 15%, var(--gradient1) 0, transparent 36%),
+    radial-gradient(ellipse at 88% 85%, var(--gradient2) 0, transparent 32%),
     var(--background);
 }
 
@@ -46,7 +46,7 @@
   display: grid;
   place-items: center;
   border-radius: 12px;
-  background: #eef0ff;
+  background: var(--logo);
 }
 
 .brand-mark svg {
@@ -75,7 +75,7 @@
   margin: 20px 0 14px;
   overflow: hidden;
   border-radius: 22px;
-  background: #f0f2ff;
+  background: var(--visual);
 }
 
 .illustration-content {
@@ -114,7 +114,7 @@
   display: grid;
   place-items: center;
   border-radius: 34px;
-  background: white;
+  background: var(--visual-item);
   box-shadow: 0 14px 40px rgba(70, 88, 217, 0.14);
   transform: rotate(-5deg);
 }
@@ -131,12 +131,13 @@
   align-items: center;
   gap: 8px;
   padding: 12px 14px;
-  border: 1px solid #edf0f8;
+  border: 1px solid var(--border);
   border-radius: 12px;
-  background: white;
+  background: var(--visual-item);
   box-shadow: 0 8px 24px rgba(35, 49, 103, 0.08);
   font-size: 11px;
   font-weight: 600;
+  color: var(--visual-text);
 }
 
 .note-one {
@@ -162,11 +163,11 @@
 }
 
 .visual-information {
-  background: #f1edff;
+  background: var(--visual-info);
 }
 
 .visual-personal {
-  background: #eaf8f6;
+  background: var(--visual-personal);
 }
 
 .feature-illustration {
@@ -181,9 +182,9 @@
   height: 160px;
   display: grid;
   place-items: center;
-  border: 1px solid #e4ddff;
+  border: 1px solid var(--border);
   border-radius: 24px;
-  background: white;
+  background: var(--icon);
   color: var(--secondary);
   box-shadow: 0 16px 40px rgba(79, 58, 150, 0.09);
   transform: rotate(-4deg);
@@ -198,7 +199,7 @@
   position: absolute;
   padding: 12px 18px;
   border-radius: 12px;
-  background: white;
+  background: var(--visual-item);
   box-shadow: 0 8px 22px rgba(35, 49, 103, 0.08);
   font-size: 12px;
   font-weight: 700;
@@ -225,7 +226,7 @@
 .mini-four {
   bottom: 65px;
   right: 20%;
-  color: var(--text);
+  color: var(--visual-text);
 }
 
 .personal-illustration {
@@ -238,7 +239,7 @@
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: white;
+  background: var(--card);
   box-shadow: 0 14px 35px rgba(0, 159, 145, 0.12);
 }
 
@@ -252,7 +253,7 @@
   bottom: 32px;
   padding: 13px 20px;
   border-radius: 12px;
-  background: white;
+  background: var(--card);
   color: var(--text);
   font-size: 12px;
   font-weight: 700;
@@ -369,13 +370,13 @@
 
 .secondary-button {
   border-color: var(--border);
-  background: white;
+  background: var(--card);
   color: var(--text);
 }
 
 .secondary-button:hover,
 .outline-button:hover {
-  background: #f5f6ff;
+  background: var(--hover-back);
 }
 
 .outline-button {
@@ -448,26 +449,21 @@
   display: grid;
   place-items: center;
   padding: 24px;
-  background: #f5f7fc;
+  background: var(--background);
 }
 
 .placeholder-card {
   width: min(100%, 500px);
   padding: 48px 32px;
-  border: 1px solid #e4e8f2;
+  border: 1px solid var(--border);
   border-radius: 24px;
-  background: white;
+  background: var(--card);
   text-align: center;
   box-shadow: 0 20px 60px rgba(35, 49, 103, 0.08);
 }
 
-.placeholder-card h1 {
-  color: #19233b;
-}
-
 .placeholder-card p {
   margin-bottom: 28px;
-  color: #69738a;
   font-size: 14px;
   line-height: 1.8;
 }
@@ -481,7 +477,7 @@
   .welcome-page {
     min-height: 100vh;
     padding: 0;
-    background: white;
+    background: var(--background);
   }
 
   .welcome-card {
@@ -492,6 +488,7 @@
     border: 0;
     border-radius: 0;
     box-shadow: none;
+    background: var(--background);
   }
 
   .brand {

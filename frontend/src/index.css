@@ -21,27 +21,51 @@
   --switch: #eef0ff;
   --hero: #69738a;
   --search: #fff;
-  --card: #fff;
+  --card: var(--search);
   --menu: rgba(255, 255, 255, 0.97);
   --article: #e7eaf3;
   --help: #eef0ff;
+  --gradient1: #e9ebff;
+  --gradient2: #e3f7f4;
+  --visual: #f0f2ff;
+  --visual-text: var(--text);
+  --visual-item: var(--search);
+  --visual-info: #f1edff;
+  --visual-personal: #eaf8f6;
+  --icon: var(--search);
+  --hover-back: #f5f6ff;
 }
 
 [data-theme="dark"] {
   --background: #060A14;
   --text: #CDD6EA;
+  --muted: #CDD6EA;
+  --logo: #5c6389;
   --switch: #8067d963;
   --hero: #c0d1f9;
   --search: #4657d9b3;
   --card: #19233b;
-  --border: #303032;
+  --border: #4b4b4e;
   --menu: #19233b;
   --article: #545557;
   --help: #030303;
+  --gradient1: #2a2b2f;
+  --gradient2: #383d3d;
+  --visual: #6a6a82;
+  --visual-text: #fff;
+  --visual-item: #c1c1e6;
+  --visual-info: #666178;
+  --visual-personal: #738683;
+  --icon: #b9b3ce;
+  --hover-back: #2a3a61;
 }
 
 * {
   box-sizing: border-box;
+}
+
+h1, p {
+  color: var(--text);
 }
 
 body {
