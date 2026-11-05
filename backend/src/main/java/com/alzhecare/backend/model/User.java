@@ -37,6 +37,13 @@ public class User {
 
     public User() {
     }
+    public User(String nombre, String apellidos, String correo, String contrasenaHash, UserRole rol) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.correoElectronico = correo;
+        this.contrasenaHash = contrasenaHash;
+        this.rol = rol;
+    }
 
     public Integer getIdUsuario() {
         return idUsuario;
