@@ -4,6 +4,8 @@ import Welcome from "./pages/welcome/Welcome";
 import PublicHome from "./pages/public-home/PublicHome";
 import PlaceholderPage from "./components/common/PlaceholderPage";
 import { WelcomeProvider } from "./contexts/WelcomeContext";
+import RequireAuth from "./components/auth/RequireAuth";
+import GuestRoute from "./components/auth/GuestRoute";
 
 function WelcomeRoute() {
     const navigate = useNavigate();
@@ -56,13 +58,34 @@ export default function App() {
                 element={<PlaceholderPage title="Ayuda" />}
             />
 
+            <Route element={<GuestRoute />}>
+                <Route
+                    path="/login"
+                    element={<PlaceholderPage title="Iniciar sesión" />}
+                />
+                <Route
+                    path="/registro"
+                    element={<PlaceholderPage title="Crear cuenta" />}
+                />
+            </Route>
+
+            <Route element={<RequireAuth allowedRoles={["PATIENT"]} />}>
+                <Route
+                    path="/paciente/inicio"
+                    element={<PlaceholderPage title="Inicio del paciente" />}
+                />
+            </Route>
+
+            <Route element={<RequireAuth allowedRoles={["CAREGIVER"]} />}>
+                <Route
+                    path="/cuidador/inicio"
+                    element={<PlaceholderPage title="Inicio del cuidador" />}
+                />
+            </Route>
+
             <Route
-                path="/login"
-                element={<PlaceholderPage title="Iniciar sesión" />}
-            />
-            <Route
-                path="/registro"
-                element={<PlaceholderPage title="Crear cuenta" />}
+                path="/acceso"
+                element={<PlaceholderPage title="Acceso no autorizado" />}
             />
 
             <Route path="*" element={<Navigate to="/" replace />} />
