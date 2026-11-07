@@ -2,6 +2,9 @@
 import { Navigate, Route, Routes, useNavigate } from "react-router";
 import Welcome from "./pages/welcome/Welcome";
 import PublicHome from "./pages/public-home/PublicHome";
+import Login from "./pages/auth/Login";
+import RegisterRole from "./pages/auth/RegisterRole";
+import Register from "./pages/auth/Register";
 import PlaceholderPage from "./components/common/PlaceholderPage";
 import { WelcomeProvider } from "./contexts/WelcomeContext";
 import RequireAuth from "./components/auth/RequireAuth";
@@ -59,14 +62,9 @@ export default function App() {
             />
 
             <Route element={<GuestRoute />}>
-                <Route
-                    path="/login"
-                    element={<PlaceholderPage title="Iniciar sesión" />}
-                />
-                <Route
-                    path="/registro"
-                    element={<PlaceholderPage title="Crear cuenta" />}
-                />
+                <Route path="/login" element={<Login />} />
+                <Route path="/registro" element={<RegisterRole />} />
+                <Route path="/registro/:rol" element={<Register />} />
             </Route>
 
             <Route element={<RequireAuth allowedRoles={["PATIENT"]} />}>
