@@ -7,6 +7,7 @@ import Login from "./pages/auth/Login";
 import RegisterRole from "./pages/auth/RegisterRole";
 import Register from "./pages/auth/Register";
 import PrivateHome from "./pages/private-home/PrivateHome";
+import More from "./pages/more/More";
 
 import PlaceholderPage from "./components/common/PlaceholderPage";
 import { WelcomeProvider } from "./contexts/WelcomeContext";
@@ -79,7 +80,7 @@ export default function App() {
 
                     <Route path="/buscar" element={<PlaceholderPage title="Buscar artículos" />} />
                     <Route path="/categorias" element={<PlaceholderPage title="Categorías" />} />
-                    <Route path="/mas" element={<PlaceholderPage title="Más opciones" />} />
+                    <Route path="/mas" element={<More />} />
                     <Route path="/perfil" element={<PlaceholderPage title="Perfil" />} />
                     <Route path="/ayuda" element={<PlaceholderPage title="Ayuda" />} />
                     <Route path="/contacto" element={<PlaceholderPage title="Contacto" />} />
