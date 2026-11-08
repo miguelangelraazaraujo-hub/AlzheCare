@@ -53,7 +53,7 @@
     flex-shrink: 0;
     border-radius: 50%;
     background: var(--logo);
-    color: var(--primary);
+    color: var(--turquoise);
     font-size: 13px;
     font-weight: 800;
 }
