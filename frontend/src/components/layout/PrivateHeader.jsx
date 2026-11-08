@@ -1,15 +1,10 @@
-import { Link } from "react-router";
-import { useTheme } from "../../contexts/ThemeContext";
 import { useAuth } from "../../contexts/AuthContext";
 import ModeSwitch from "../common/ModeSwitch";
-
-import logoLight from "../../assets/AlzheCare.png";
-import logoDark from "../../assets/AlzheCare-dark.png";
+import Logo from "../common/Logo";
 
 import "./PrivateLayout.css";
 
 export default function PrivateHeader() {
-    const { theme } = useTheme();
     const { user } = useAuth();
 
     const initials = `${user?.nombre?.[0] ?? ""}${user?.apellidos?.[0] ?? ""}`
@@ -19,15 +14,7 @@ export default function PrivateHeader() {
 
     return (
         <header className="private-header">
-            <Link to="/inicio" className="private-brand" aria-label="AlzheCare, inicio">
-                <img
-                    src={theme === "dark" ? logoDark : logoLight}
-                    alt=""
-                    width={36}
-                    height={36}
-                />
-                <span>AlzheCare</span>
-            </Link>
+            <Logo to="/inicio" />
 
             <div className="private-header-user">
                 <ModeSwitch />

@@ -33,7 +33,6 @@
 }
 
 .auth-brand {
-    display: inline-block;
     color: var(--primary);
     font-size: 23px;
     font-weight: 800;
@@ -41,20 +40,27 @@
 }
 
 .brand {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    justify-content: space-between;
     justify-content: flex-start;
     gap: 10px;
     color: var(--primary);
     font-size: 21px;
     font-weight: 800;
     letter-spacing: -0.7px;
+    text-decoration: none;
 }
 
-.brand-mark svg {
-    width: 30px;
-    height: 30px;
+.brand-mark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.brand-mark img {
+    display: block;
+    object-fit: contain;
 }
 
 .auth-heading {
