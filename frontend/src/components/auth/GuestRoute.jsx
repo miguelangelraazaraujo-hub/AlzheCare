@@ -3,7 +3,7 @@ import { Navigate, Outlet } from "react-router";
 import { useAuth } from "../../contexts/AuthContext";
 
 export default function GuestRoute() {
-    const { user, isAuthenticated, isLoading } = useAuth();
+    const { isAuthenticated, isLoading } = useAuth();
 
     if (isLoading) {
         return null;
@@ -11,12 +11,7 @@ export default function GuestRoute() {
 
     if (isAuthenticated) {
         return (
-            <Navigate
-                to={user.rol === "PATIENT"
-                    ? "/paciente/inicio"
-                    : "/cuidador/inicio"}
-                replace
-            />
+            <Navigate to="/inicio" replace />
         );
     }
 

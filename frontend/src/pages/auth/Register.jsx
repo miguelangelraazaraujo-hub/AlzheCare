@@ -57,7 +57,7 @@ export default function Register() {
         setIsSubmitting(true);
 
         try {
-            const user = await register({
+            await register({
                 nombre: nombre.trim(),
                 apellidos: apellidos.trim(),
                 correoElectronico: correoElectronico.trim(),
@@ -65,12 +65,7 @@ export default function Register() {
                 rol: selectedRole.value,
             });
 
-            const destination =
-                user.rol === "PATIENT"
-                    ? "/paciente/inicio"
-                    : "/cuidador/inicio";
-
-            navigate(destination, { replace: true });
+            navigate("/inicio", { replace: true });
         } catch (err) {
             setError(err.message || "No se pudo crear la cuenta.");
         } finally {
@@ -151,6 +146,7 @@ export default function Register() {
                             onChange={(event) =>
                                 setContrasena(event.target.value)
                             }
+                            placeholder="Tu contraseña"
                             minLength={8}
                             required
                         />
@@ -171,6 +167,7 @@ export default function Register() {
                             onChange={(event) =>
                                 setConfirmarContrasena(event.target.value)
                             }
+                            placeholder="Escribe de nuevo la contraseña"
                             required
                         />
                     </div>

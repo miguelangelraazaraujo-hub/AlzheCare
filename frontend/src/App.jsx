@@ -67,19 +67,25 @@ export default function App() {
                 <Route path="/registro/:rol" element={<Register />} />
             </Route>
 
-            <Route element={<RequireAuth allowedRoles={["PATIENT"]} />}>
-                <Route
-                    path="/paciente/inicio"
-                    element={<PlaceholderPage title="Inicio del paciente" />}
-                />
+            <Route element={<RequireAuth allowedRoles={["PATIENT", "CAREGIVER"]} />}>
+                <Route path="/inicio" element={<PlaceholderPage title="Inicio personal" />} />
+                <Route path="/buscar" element={<PlaceholderPage title="Buscar artículos" />} />
+                <Route path="/categorias" element={<PlaceholderPage title="Categorías" />} />
+                <Route path="/mas" element={<PlaceholderPage title="Más opciones" />} />
+                <Route path="/perfil" element={<PlaceholderPage title="Perfil" />} />
+                <Route path="/ayuda" element={<PlaceholderPage title="Ayuda" />} />
+                <Route path="/contacto" element={<PlaceholderPage title="Contacto" />} />
             </Route>
 
-            <Route element={<RequireAuth allowedRoles={["CAREGIVER"]} />}>
-                <Route
-                    path="/cuidador/inicio"
-                    element={<PlaceholderPage title="Inicio del cuidador" />}
-                />
-            </Route>
+            <Route
+                path="/paciente/inicio"
+                element={<Navigate to="/inicio" replace />}
+            />
+
+            <Route
+                path="/cuidador/inicio"
+                element={<Navigate to="/inicio" replace />}
+            />
 
             <Route
                 path="/acceso"

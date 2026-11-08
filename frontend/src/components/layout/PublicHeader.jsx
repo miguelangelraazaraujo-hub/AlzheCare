@@ -1,5 +1,6 @@
 
 import { Link } from "react-router";
+import { UserRound } from "lucide-react";
 import ModeSwitch from "../common/ModeSwitch";
 import { useTheme } from "../../contexts/ThemeContext";
 import logoLight from "../../assets/AlzheCare.png";
@@ -26,7 +27,12 @@ export default function PublicHeader() {
             <ModeSwitch />
 
             <Link to="/login" className="account-link">
-                <span className="account-icon" aria-hidden="true">○</span>
+                <UserRound
+                    className="account-icon"
+                    size={20}
+                    strokeWidth={1.8}
+                    aria-hidden="true"
+                />
                 <span>Invitado</span>
             </Link>
         </header>

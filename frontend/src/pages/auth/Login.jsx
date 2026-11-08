@@ -21,17 +21,12 @@ export default function Login() {
         setIsSubmitting(true);
 
         try {
-            const user = await login({
+            await login({
                 correoElectronico,
                 contrasena,
             });
 
-            const destination =
-                user.rol === "PATIENT"
-                    ? "/paciente/inicio"
-                    : "/cuidador/inicio";
-
-            navigate(destination, { replace: true });
+            navigate("/inicio", { replace: true });
         } catch (err) {
             setError(err.message || "No se pudo iniciar sesión.");
         } finally {
@@ -107,6 +102,9 @@ export default function Login() {
 
                 <Link to="/publico" className="auth-back">
                     Continuar sin cuenta
+                </Link>
+                <Link to="/bienvenida" className="auth-back">
+                    Volver
                 </Link>
             </section>
         </main>
