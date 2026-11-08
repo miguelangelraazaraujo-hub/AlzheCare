@@ -42,7 +42,9 @@ export default function App() {
 
             <Route path="/bienvenida" element={<WelcomeRoute />} />
 
-            <Route path="/publico" element={<PublicHome />} />
+            <Route element={<GuestRoute />}>
+                <Route path="/publico" element={<PublicHome />} />
+            </Route>
 
             <Route
                 path="/publico/categorias"
