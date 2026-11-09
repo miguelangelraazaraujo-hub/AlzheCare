@@ -492,34 +492,110 @@ En este apartado se incluirán capturas de la pantalla de bienvenida y sus opcio
   </tr>
 </table>
 
+### Opciones de acceso
+
+Se muestran las principales formas de acceder al contenido.
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="screenshots/opciones-entrada.png" width="300">
+      <br>
+      <b>Opciones de entrada a la app(Invitado, Login o Registro)</b>
+    </td>
+  </tr>
+</table>
+
 ### Inicio público
 
 Se mostrarán las principales secciones informativas disponibles para los visitantes.
 
-![Inicio público de AlzheCare](./screenshots/inicio-publico.png)
-<img src="screenshots/inicio-publico.png" width="50%" height="50%" alt="Inicio público de AlzheCare">
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="screenshots/inicio-publico.png" width="300">
+      <br>
+      <b>Inicio público como invitado</b>
+    </td>
+  </tr>
+</table>
 
 ### Registro e inicio de sesión
 
 Capturas de los formularios de autenticación y del proceso de selección del tipo de usuario.
 
-![Inicio de sesión de AlzheCare](./screenshots/login.png)
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="screenshots/login.png" width="300">
+      <br>
+      <b>Inicio de sesión de AlzheCare</b>
+    </td>
+  </tr>
+</table>
 
-![Registro de usuario de AlzheCare](./screenshots/registro.png)
+<table>
+  <tr>
+    <td align="center">
+      <img src="screenshots/registro-roles.png" width="300">
+      <br>
+      <b>Elección de roles</b>
+    </td>
+    <td align="center">
+      <img src="screenshots/registro.png" width="300">
+      <br>
+      <b>Registro de usuario de AlzheCare</b>
+    </td>
+  </tr>
+</table>
 
 ### Inicio privado
 
 Se incluirá una captura de la página principal a la que acceden los usuarios autenticados.
 
-![Inicio privado de AlzheCare](./screenshots/inicio-privado.png)
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="screenshots/inicio-privado.png" width="300">
+      <br>
+      <b>Inicio privado de AlzheCare</b>
+    </td>
+  </tr>
+</table>
 
 ### Navegación y modo oscuro
 
 Capturas de los menús de navegación y de la apariencia de la aplicación al utilizar el tema oscuro.
 
-![Navegación privada de AlzheCare](./screenshots/navegacion-privada.png)
+<table>
+  <tr>
+    <td align="center">
+      <img src="screenshots/inicio-privado-dark.png" width="300">
+      <br>
+      <b>Inicio privado de AlzheCare en dark mode</b>
+    </td>
+    <td align="center">
+      <img src="screenshots/inicio-publico-dark.png" width="300">
+      <br>
+      <b>Inicio público de AlzheCare en dark mode</b>
+    </td>
+  </tr>
+</table>
 
-![Modo oscuro de AlzheCare](./screenshots/modo-oscuro.png)
+<table>
+  <tr>
+    <td align="center">
+      <img src="screenshots/mas-opciones-dark.png" width="300">
+      <br>
+      <b>Apartado de más opciones en dark mode</b>
+    </td>
+    <td align="center">
+      <img src="screenshots/cierre-sesion-dark.png" width="300">
+      <br>
+      <b>Cierre de de sesión de AlzheCare en dark mode</b>
+    </td>
+  </tr>
+</table>
 
 ---
 
