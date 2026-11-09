@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alzhecare.backend.dto.request.LoginRequest;
 import com.alzhecare.backend.dto.request.RegisterRequest;
+import com.alzhecare.backend.dto.response.AuthResponse;
 import com.alzhecare.backend.dto.response.UserResponse;
 import com.alzhecare.backend.model.User;
 import com.alzhecare.backend.repository.UserRepository;
@@ -18,17 +19,20 @@ public class AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
     public AuthService(
         UserRepository userRepository,
-        PasswordEncoder passwordEncoder
+        PasswordEncoder passwordEncoder,
+        JwtService jwtService
     ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
     }
 
     @Transactional
-    public UserResponse register(RegisterRequest request) {
+    public AuthResponse register(RegisterRequest request) {
 
         String correo = normalizeEmail(request.correoElectronico());
 
@@ -56,11 +60,11 @@ public class AuthService {
 
         User savedUser = userRepository.save(user);
 
-        return UserResponse.fromEntity(savedUser);
+        return createAuthResponse(savedUser);
     }
 
     @Transactional(readOnly = true)
-    public UserResponse authenticate(LoginRequest request) {
+    public AuthResponse authenticate(LoginRequest request) {
 
         String correo = normalizeEmail(request.correoElectronico());
 
@@ -79,7 +83,19 @@ public class AuthService {
             );
         }
 
-        return UserResponse.fromEntity(user);
+        return createAuthResponse(user);
+    }
+
+    private AuthResponse createAuthResponse(User user) {
+        String token = jwtService.generateToken(
+            user.getCorreoElectronico()
+        );
+
+        return new AuthResponse(
+            token,
+            "Bearer",
+            UserResponse.fromEntity(user)
+        );
     }
 
     private String normalizeEmail(String correo) {
