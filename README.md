@@ -204,7 +204,7 @@ Crea la variable de entorno e inicia el servidor de Spring Boot:
 
 ```bash
 $env:JWT_SECRET="TU_CLAVE_BASE64_GENERADA"
-.\mvnw.cmd spring-boot:run
+.\mvnw.cmd clean spring-boot:run
 ```
 
 Por defecto, el backend estará disponible en:
@@ -472,13 +472,32 @@ El prototipado permite comprobar la distribución de los elementos, la jerarquí
 
 En este apartado se incluirán capturas de la pantalla de bienvenida y sus opciones de acceso.
 
-![Página de bienvenida de AlzheCare](./screenshots/bienvenida.png)
+<table>
+  <tr>
+    <td align="center">
+      <img src="screenshots/bienvenida.png" width="300">
+      <br>
+      <b>Slide de bienvenida 1</b>
+    </td>
+    <td align="center">
+      <img src="screenshots/bienvenida2.png" width="300">
+      <br>
+      <b>Slide de bienvenida 2</b>
+    </td>
+    <td align="center">
+      <img src="screenshots/bienvenida3.png" width="300">
+      <br>
+      <b>Slide de bienvenida 3</b>
+    </td>
+  </tr>
+</table>
 
 ### Inicio público
 
 Se mostrarán las principales secciones informativas disponibles para los visitantes.
 
 ![Inicio público de AlzheCare](./screenshots/inicio-publico.png)
+<img src="screenshots/inicio-publico.png" width="50%" height="50%" alt="Inicio público de AlzheCare">
 
 ### Registro e inicio de sesión
 
