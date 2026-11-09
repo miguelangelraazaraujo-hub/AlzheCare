@@ -33,6 +33,7 @@
     --visual-personal: #eaf8f6;
     --icon: var(--search);
     --hover-back: #f5f6ff;
+    --roles-muted: var(--search)
 }
 
 [data-theme="dark"] {
@@ -57,6 +58,7 @@
     --visual-personal: #738683;
     --icon: #b9b3ce;
     --hover-back: #2a3a61;
+    --roles-muted: var(--muted);
 }
 
 * {
