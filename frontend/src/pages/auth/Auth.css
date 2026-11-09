@@ -244,13 +244,13 @@
 }
 
 .role-content>span {
-    color: var(--muted);
+    color: var(--roles-muted);
     font-size: 10px;
     line-height: 1.6;
 }
 
 .role-arrow {
-    color: var(--primary);
+    color: var(--roles-muted);
     font-size: 20px;
 }
 
