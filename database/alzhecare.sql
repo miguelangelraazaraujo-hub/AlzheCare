@@ -31,10 +31,7 @@ CREATE TABLE `articulo` (
   `fuente` varchar(255) DEFAULT NULL,
   `fecha_publicacion` datetime DEFAULT current_timestamp(),
   `fecha_actualizacion` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `id_categoria` int(11) NOT NULL,
-  PRIMARY KEY (`id_articulo`),
-  KEY `fk_articulo_categoria` (`id_categoria`),
-  CONSTRAINT `fk_articulo_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`) ON UPDATE CASCADE
+  PRIMARY KEY (`id_articulo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -46,6 +43,37 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `articulo` WRITE;
 /*!40000 ALTER TABLE `articulo` DISABLE KEYS */;
 /*!40000 ALTER TABLE `articulo` ENABLE KEYS */;
+UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
+
+--
+-- Table structure for table `articulo_categoria`
+--
+
+DROP TABLE IF EXISTS `articulo_categoria`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `articulo_categoria` (
+  `id_articulo_categoria` int(11) NOT NULL AUTO_INCREMENT,
+  `id_articulo` int(11) NOT NULL,
+  `id_categoria` int(11) NOT NULL,
+  PRIMARY KEY (`id_articulo_categoria`),
+  UNIQUE KEY `uk_articulo_categoria` (`id_articulo`,`id_categoria`),
+  KEY `fk_articulo_categoria_categoria` (`id_categoria`),
+  CONSTRAINT `fk_articulo_categoria_articulo` FOREIGN KEY (`id_articulo`) REFERENCES `articulo` (`id_articulo`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_articulo_categoria_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `articulo_categoria`
+--
+
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
+LOCK TABLES `articulo_categoria` WRITE;
+/*!40000 ALTER TABLE `articulo_categoria` DISABLE KEYS */;
+/*!40000 ALTER TABLE `articulo_categoria` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
@@ -127,7 +155,7 @@ CREATE TABLE `usuario` (
   `rol` enum('paciente','cuidador') NOT NULL,
   PRIMARY KEY (`id_usuario`),
   UNIQUE KEY `correo_electronico` (`correo_electronico`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -137,6 +165,9 @@ CREATE TABLE `usuario` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES
+(1,'Ana','García López','ana@example.com','$2a$12$dbPECAjlB5oS9eNzY2QsHubG78ERLRG4VB2JXXBSqp8E7go.f3x6m','cuidador'),
+(2,'Miguel','Raaz Araujo','miguelangelraazaraujo@alumno.ieselrincon.es','$2a$12$h4XvDUcPj1mikbIy2ghDHOJbOpk0y2ItKC.xlNzeD6/lLq.BJSlHq','cuidador');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -151,4 +182,4 @@ SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2026-11-03 18:08:55
+-- Dump completed on 2026-11-10 17:42:33
