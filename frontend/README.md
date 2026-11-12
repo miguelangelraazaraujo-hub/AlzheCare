@@ -189,10 +189,21 @@ En Windows, comprueba que el proyecto compila correctamente:
 ```bash
 .\mvnw.cmd clean compile
 ```
-
-Inicia el servidor de Spring Boot:
+Puedes generar una clave en base 64 desde PowerShell con:
 
 ```bash
+$bytes = New-Object byte[] 32
+
+$rng = [System.Security.Cryptography.RNGCryptoServiceProvider]::new()
+$rng.GetBytes($bytes)
+$rng.Dispose()
+
+[Convert]::ToBase64String($bytes)
+````
+Crea la variable de entorno e inicia el servidor de Spring Boot:
+
+```bash
+$env:JWT_SECRET="TU_CLAVE_BASE64_GENERADA"
 .\mvnw.cmd spring-boot:run
 ```
 
@@ -490,8 +501,6 @@ Capturas de los menús de navegación y de la apariencia de la aplicación al ut
 ![Navegación privada de AlzheCare](./screenshots/navegacion-privada.png)
 
 ![Modo oscuro de AlzheCare](./screenshots/modo-oscuro.png)
-
-*Las imágenes anteriores representan las ubicaciones previstas para las capturas. Se deben añadir los archivos correspondientes a la carpeta `screenshots` del repositorio.*
 
 ---
 
