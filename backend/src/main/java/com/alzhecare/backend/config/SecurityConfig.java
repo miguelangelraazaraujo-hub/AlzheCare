@@ -36,6 +36,13 @@ public class SecurityConfig {
                     "/api/auth/register",
                     "/api/auth/login"
                 ).permitAll()
+                .requestMatchers(
+                    HttpMethod.GET,
+                    "/api/articles",
+                    "/api/articles/**",
+                    "/api/categories",
+                    "/api/categories/**"
+                ).permitAll()
                 .anyRequest().authenticated()
             )
             .httpBasic(AbstractHttpConfigurer::disable)
