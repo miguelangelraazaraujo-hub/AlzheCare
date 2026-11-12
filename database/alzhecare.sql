@@ -32,7 +32,7 @@ CREATE TABLE `articulo` (
   `fecha_publicacion` datetime DEFAULT current_timestamp(),
   `fecha_actualizacion` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id_articulo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,6 +42,12 @@ CREATE TABLE `articulo` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `articulo` WRITE;
 /*!40000 ALTER TABLE `articulo` DISABLE KEYS */;
+INSERT INTO `articulo` VALUES
+(1,'¿Qué es la enfermedad de Alzheimer?','La enfermedad de Alzheimer es un trastorno neurológico progresivo que afecta a la memoria, el pensamiento y el comportamiento. Conocer sus características permite comprender mejor las necesidades de las personas que conviven con ella.',NULL,'AlzheCare','2026-11-12 18:47:44','2026-11-12 18:47:44'),
+(2,'Primeros síntomas del Alzheimer','Entre los primeros síntomas pueden aparecer problemas de memoria reciente, dificultades para realizar tareas habituales, desorientación y cambios en el estado de ánimo. Reconocer estas señales puede facilitar una detección temprana.',NULL,'AlzheCare','2026-11-12 18:47:44','2026-11-12 18:47:44'),
+(3,'Consejos para cuidar a una persona con Alzheimer','Mantener rutinas, adaptar el entorno, fomentar la autonomía y utilizar una comunicación sencilla puede facilitar el cuidado diario de una persona con Alzheimer.',NULL,'AlzheCare','2026-11-12 18:47:44','2026-11-12 18:47:44'),
+(4,'Tratamientos y terapias para el Alzheimer','Existen tratamientos farmacológicos y terapias no farmacológicas que pueden ayudar a controlar algunos síntomas y mejorar la calidad de vida de las personas con Alzheimer.',NULL,'AlzheCare','2026-11-12 18:47:44','2026-11-12 18:47:44'),
+(5,'Novedades e investigaciones sobre el Alzheimer','La investigación sobre el Alzheimer continúa avanzando. Los estudios científicos buscan mejorar el diagnóstico, desarrollar nuevos tratamientos y comprender mejor los mecanismos de la enfermedad.',NULL,'AlzheCare','2026-11-12 18:47:44','2026-11-12 18:47:44');
 /*!40000 ALTER TABLE `articulo` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -63,7 +69,7 @@ CREATE TABLE `articulo_categoria` (
   KEY `fk_articulo_categoria_categoria` (`id_categoria`),
   CONSTRAINT `fk_articulo_categoria_articulo` FOREIGN KEY (`id_articulo`) REFERENCES `articulo` (`id_articulo`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_articulo_categoria_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,6 +79,17 @@ CREATE TABLE `articulo_categoria` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `articulo_categoria` WRITE;
 /*!40000 ALTER TABLE `articulo_categoria` DISABLE KEYS */;
+INSERT INTO `articulo_categoria` VALUES
+(1,1,1),
+(2,1,6),
+(3,2,1),
+(4,2,2),
+(5,3,3),
+(6,3,5),
+(7,4,1),
+(8,4,4),
+(9,5,1),
+(10,5,6);
 /*!40000 ALTER TABLE `articulo_categoria` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -90,7 +107,7 @@ CREATE TABLE `categoria` (
   `nombre` varchar(100) NOT NULL,
   `descripcion` text DEFAULT NULL,
   PRIMARY KEY (`id_categoria`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -100,6 +117,13 @@ CREATE TABLE `categoria` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `categoria` WRITE;
 /*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
+INSERT INTO `categoria` VALUES
+(1,'Alzheimer','Información general sobre el Alzheimer.'),
+(2,'Síntomas','Información sobre los síntomas y señales de alerta.'),
+(3,'Cuidados','Consejos y recomendaciones para el cuidado diario.'),
+(4,'Tratamientos','Información sobre tratamientos y terapias.'),
+(5,'Familiares y cuidadores','Orientación y apoyo para familiares y cuidadores.'),
+(6,'Noticias','Actualidad y novedades');
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -182,4 +206,4 @@ SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2026-11-10 17:42:33
+-- Dump completed on 2026-11-12 19:11:55
