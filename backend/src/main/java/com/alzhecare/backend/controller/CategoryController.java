@@ -2,6 +2,7 @@ package com.alzhecare.backend.controller;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +18,7 @@ public class CategoryController {
     public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
-
+    @GetMapping 
     public List<CategoryResponse> getAllCategories() {
         return categoryService.getAllCategories();
     }
