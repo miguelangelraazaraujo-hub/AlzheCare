@@ -1,0 +1,113 @@
+.notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: min(400px, calc(100vw - 40px));
+    pointer-events: none;
+}
+
+.notification {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    border: 1px solid var(--border-color, #ddd);
+    border-left: 4px solid var(--notification-color);
+    border-radius: 10px;
+    background: var(--card-background, #fff);
+    color: var(--text-color, #222);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    pointer-events: auto;
+    animation: notification-appear 0.2s ease-out;
+}
+
+.notification-success {
+    --notification-color: #238636;
+}
+
+.notification-error {
+    --notification-color: #d93025;
+}
+
+.notification-warning {
+    --notification-color: #b7791f;
+}
+
+.notification-info {
+    --notification-color: #2878c7;
+}
+
+.notification-icon {
+    flex-shrink: 0;
+    color: var(--notification-color);
+}
+
+.notification-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.notification-content strong {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.95rem;
+}
+
+.notification-content p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+}
+
+.notification-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 3px;
+    border: none;
+    border-radius: 5px;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+}
+
+.notification-close:hover {
+    background: var(--hover-background, rgba(0, 0, 0, 0.08));
+}
+
+.notification-close:focus-visible {
+    outline: 2px solid var(--notification-color);
+    outline-offset: 2px;
+}
+
+@keyframes notification-appear {
+    from {
+        opacity: 0;
+        transform: translateX(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@media (max-width: 480px) {
+    .notification-container {
+        top: 12px;
+        right: 12px;
+        width: calc(100vw - 24px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .notification {
+        animation: none;
+    }
+}
