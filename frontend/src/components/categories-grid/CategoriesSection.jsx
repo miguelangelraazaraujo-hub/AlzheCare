@@ -64,7 +64,7 @@ export default function CategoriesSection() {
         return () => {
             active = false;
         };
-    }, []);
+    }, [notify]);
 
     return (
         <section className="public-section">
