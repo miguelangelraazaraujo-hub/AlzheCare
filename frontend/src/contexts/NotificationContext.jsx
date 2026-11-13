@@ -14,6 +14,7 @@ export function NotificationProvider({ children }) {
     const [notifications, setNotifications] = useState([]);
     const timers = useRef(new Map());
     const nextId = useRef(0);
+    const notificationsRef = useRef([]);
 
     const dismissNotification = useCallback((id) => {
         const timer = timers.current.get(id);
@@ -23,18 +24,35 @@ export function NotificationProvider({ children }) {
             timers.current.delete(id);
         }
 
-        setNotifications((current) =>
-            current.filter((notification) => notification.id !== id)
+        notificationsRef.current = notificationsRef.current.filter(
+            (notification) => notification.id !== id
         );
+
+        setNotifications(notificationsRef.current);
     }, []);
 
     const notify = useCallback((message, type = "info", duration = 5000) => {
+        // Evitar notificaciones duplicadas mientras la original siga activa.
+        const existing = notificationsRef.current.find(
+            (notification) =>
+                notification.message === message &&
+                notification.type === type
+        );
+
+        if (existing) {
+            return existing.id;
+        }
+
         const id = ++nextId.current;
 
-        setNotifications((current) => [
-            ...current,
-            { id, message, type },
-        ]);
+        const newNotification = { id, message, type };
+
+        notificationsRef.current = [
+            ...notificationsRef.current,
+            newNotification,
+        ];
+
+        setNotifications(notificationsRef.current);
 
         if (duration > 0) {
             const timer = setTimeout(() => {
@@ -50,6 +68,8 @@ export function NotificationProvider({ children }) {
     const clearNotifications = useCallback(() => {
         timers.current.forEach((timer) => clearTimeout(timer));
         timers.current.clear();
+
+        notificationsRef.current = [];
         setNotifications([]);
     }, []);
 

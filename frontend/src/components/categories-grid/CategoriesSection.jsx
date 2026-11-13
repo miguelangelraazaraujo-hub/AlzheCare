@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 
 import contentService from "../../services/contentService";
+import { useNotification } from "../../contexts/NotificationContext";
 
 const categoryIcons = {
     Alzheimer: Brain,
@@ -33,6 +34,7 @@ export default function CategoriesSection() {
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const { notify } = useNotification();
 
     useEffect(() => {
         let active = true;
@@ -46,6 +48,7 @@ export default function CategoriesSection() {
                     setError("");
                 }
             } catch (error) {
+                notify(error.message, "error");
                 if (active) {
                     setError(error.message);
                 }
