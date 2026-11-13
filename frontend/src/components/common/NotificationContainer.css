@@ -15,11 +15,11 @@
     align-items: flex-start;
     gap: 12px;
     padding: 16px;
-    border: 1px solid var(--border-color, #ddd);
+    border: 1px solid var(--border, #ddd);
     border-left: 4px solid var(--notification-color);
     border-radius: 10px;
-    background: var(--card-background, #fff);
-    color: var(--text-color, #222);
+    background: var(--card, --article);
+    color: var(--text, #222);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
     pointer-events: auto;
     animation: notification-appear 0.2s ease-out;
