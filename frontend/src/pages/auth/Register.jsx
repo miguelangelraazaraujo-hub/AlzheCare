@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router";
 import Logo from "../../components/common/Logo";
 import { useAuth } from "../../contexts/AuthContext";
+import { useNotification } from "../../contexts/NotificationContext";
 import "./Auth.css";
 
 const roles = {
@@ -23,6 +24,8 @@ export default function Register() {
     const { register } = useAuth();
     const navigate = useNavigate();
 
+    const { notify } = useNotification();
+
     const [nombre, setNombre] = useState("");
     const [apellidos, setApellidos] = useState("");
     const [correoElectronico, setCorreoElectronico] = useState("");
@@ -34,6 +37,44 @@ export default function Register() {
     if (!selectedRole) {
         return <Navigate to="/registro" replace />;
     }
+
+    // async function handleSubmit(event) {
+    //     event.preventDefault();
+    //     setError("");
+
+    //     if (contrasena !== confirmarContrasena) {
+    //         setError("Las contraseñas no coinciden.");
+    //         return;
+    //     }
+
+    //     if (contrasena.length < 8) {
+    //         setError("La contraseña debe tener al menos 8 caracteres.");
+    //         return;
+    //     }
+
+    //     if (new TextEncoder().encode(contrasena).length > 72) {
+    //         setError("La contraseña supera el máximo permitido de 72 bytes.");
+    //         return;
+    //     }
+
+    //     setIsSubmitting(true);
+
+    //     try {
+    //         await register({
+    //             nombre: nombre.trim(),
+    //             apellidos: apellidos.trim(),
+    //             correoElectronico: correoElectronico.trim(),
+    //             contrasena,
+    //             rol: selectedRole.value,
+    //         });
+
+    //         navigate("/inicio", { replace: true });
+    //     } catch (err) {
+    //         setError(err.message || "No se pudo crear la cuenta.");
+    //     } finally {
+    //         setIsSubmitting(false);
+    //     }
+    // }
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -65,9 +106,10 @@ export default function Register() {
                 rol: selectedRole.value,
             });
 
+            notify("Tu cuenta se ha creado correctamente.", "success");
             navigate("/inicio", { replace: true });
         } catch (err) {
-            setError(err.message || "No se pudo crear la cuenta.");
+            notify(err.message || "No se pudo crear la cuenta.", "error");
         } finally {
             setIsSubmitting(false);
         }

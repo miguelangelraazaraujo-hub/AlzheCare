@@ -3,21 +3,41 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import Logo from "../../components/common/Logo";
 import { useAuth } from "../../contexts/AuthContext";
+import { useNotification } from "../../contexts/NotificationContext";
 import "./Auth.css";
 
 export default function Login() {
     const { login } = useAuth();
     const navigate = useNavigate();
+    const { notify } = useNotification();
 
     const [correoElectronico, setCorreoElectronico] = useState("");
     const [contrasena, setContrasena] = useState("");
-    const [error, setError] = useState("");
+    // const [error, setError] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    // async function handleSubmit(event) {
+    //     event.preventDefault();
+
+    //     setError("");
+    //     setIsSubmitting(true);
+
+    //     try {
+    //         await login({
+    //             correoElectronico,
+    //             contrasena,
+    //         });
+
+    //         navigate("/inicio", { replace: true });
+    //     } catch (err) {
+    //         setError(err.message || "No se pudo iniciar sesión.");
+    //     } finally {
+    //         setIsSubmitting(false);
+    //     }
+    // }
 
     async function handleSubmit(event) {
         event.preventDefault();
-
-        setError("");
         setIsSubmitting(true);
 
         try {
@@ -26,9 +46,10 @@ export default function Login() {
                 contrasena,
             });
 
+            notify("Sesión iniciada correctamente.", "success");
             navigate("/inicio", { replace: true });
         } catch (err) {
-            setError(err.message || "No se pudo iniciar sesión.");
+            notify(err.message || "No se pudo iniciar sesión.", "error");
         } finally {
             setIsSubmitting(false);
         }
@@ -79,12 +100,6 @@ export default function Login() {
                             required
                         />
                     </div>
-
-                    {error && (
-                        <p className="auth-error" role="alert">
-                            {error}
-                        </p>
-                    )}
 
                     <button
                         className="auth-submit"
