@@ -190,8 +190,8 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
 INSERT INTO `usuario` VALUES
-(1,'Ana','García López','ana@example.com','$2a$12$dbPECAjlB5oS9eNzY2QsHubG78ERLRG4VB2JXXBSqp8E7go.f3x6m','cuidador'),
-(2,'Miguel','Raaz Araujo','miguelangelraazaraujo@alumno.ieselrincon.es','$2a$12$h4XvDUcPj1mikbIy2ghDHOJbOpk0y2ItKC.xlNzeD6/lLq.BJSlHq','cuidador');
+(1,'Ana','García López','ana@example.com','$2a$10$qSktv.XihhxsIJkzlNdI.ezs7aL/KUDcUqIRzp8AOVLnP2jbAkhCe','cuidador'),
+(2,'Miguel','Raaz Araujo','miguelangelraazaraujo@alumno.ieselrincon.es','$2a$10$uQCR4C7TVIJH.klj4owXnuDDAY9NgPtmqGhmLzL/mpxkg4imVF.Q6','cuidador');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -206,4 +206,4 @@ SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2026-11-12 19:11:55
+-- Dump completed on 2026-11-18 19:13:40
