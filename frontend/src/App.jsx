@@ -8,6 +8,7 @@ import RegisterRole from "./pages/auth/RegisterRole";
 import Register from "./pages/auth/Register";
 import PrivateHome from "./pages/private-home/PrivateHome";
 import More from "./pages/more/More";
+import PublicCategories from "./pages/public-categories/PublicCategories";
 
 import PlaceholderPage from "./components/common/PlaceholderPage";
 import { WelcomeProvider } from "./contexts/WelcomeContext";
@@ -50,12 +51,9 @@ export default function App() {
 
                 <Route element={<GuestRoute />}>
                     <Route path="/publico" element={<PublicHome />} />
+                    <Route path="/publico/categorias" element={<PublicCategories />} />
                 </Route>
 
-                <Route
-                    path="/publico/categorias"
-                    element={<PlaceholderPage title="Categorías" />}
-                />
                 <Route
                     path="/publico/busqueda"
                     element={<PlaceholderPage title="Buscar información" />}

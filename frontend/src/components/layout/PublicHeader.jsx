@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { UserRound } from "lucide-react";
 import ModeSwitch from "../common/ModeSwitch";
 import Logo from "../common/Logo";
+import "./PublicHeader.css";
 
 export default function PublicHeader() {
 

@@ -26,7 +26,7 @@ export default function Logo({ to }) {
                 />
             </span>
 
-            <span className="auth-brand">AlzheCare</span>
+            <span className="logo-brand">AlzheCare</span>
         </Link>
     );
 }
