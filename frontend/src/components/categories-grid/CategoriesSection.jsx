@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import {
     Brain,
@@ -8,9 +7,6 @@ import {
     Users,
     Newspaper,
 } from "lucide-react";
-
-import contentService from "../../services/contentService";
-import { useNotification } from "../../contexts/NotificationContext";
 
 const categoryIcons = {
     Alzheimer: Brain,
@@ -30,42 +26,11 @@ const categoryColors = {
     Noticias: "blue",
 };
 
-export default function CategoriesSection() {
-    const [categories, setCategories] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState("");
-    const { notify } = useNotification();
-
-    useEffect(() => {
-        let active = true;
-
-        async function loadCategories() {
-            try {
-                const data = await contentService.getCategories();
-
-                if (active) {
-                    setCategories(data);
-                    setError("");
-                }
-            } catch (error) {
-                notify(error.message, "error");
-                if (active) {
-                    setError(error.message);
-                }
-            } finally {
-                if (active) {
-                    setLoading(false);
-                }
-            }
-        }
-
-        loadCategories();
-
-        return () => {
-            active = false;
-        };
-    }, [notify]);
-
+export default function CategoriesSection({
+    categories = [],
+    loading = false,
+    error = "",
+}) {
     return (
         <section className="public-section">
             <div className="section-heading">
@@ -83,9 +48,9 @@ export default function CategoriesSection() {
                 <p role="status">Cargando categorías...</p>
             )}
 
-            {error && (
+            {!loading && error && (
                 <p role="alert" className="error-message">
-                    No se pudieron cargar las categorías: {error}
+                    No se pudieron cargar las categorías.
                 </p>
             )}
 
@@ -96,8 +61,11 @@ export default function CategoriesSection() {
             {!loading && !error && categories.length > 0 && (
                 <div className="category-grid">
                     {categories.map((category) => {
-                        const Icon = categoryIcons[category.nombre] || Brain;
-                        const color = categoryColors[category.nombre] || "blue";
+                        const Icon =
+                            categoryIcons[category.nombre] || Brain;
+
+                        const color =
+                            categoryColors[category.nombre] || "blue";
 
                         return (
                             <Link

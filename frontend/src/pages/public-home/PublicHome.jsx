@@ -8,15 +8,43 @@ import ArticleList from "../../components/article-list/ArticleList";
 import PublicSearchBar from "../../components/public-search-bar/PublicSearchBar";
 
 import contentService from "../../services/contentService";
+import { useNotification } from "../../contexts/NotificationContext";
+
 import "./PublicHome.css";
 
 export default function PublicHome() {
+    const { notify } = useNotification();
+
+    const [categories, setCategories] = useState([]);
+    const [categoriesLoading, setCategoriesLoading] = useState(true);
+    const [categoriesError, setCategoriesError] = useState("");
+
     const [articles, setArticles] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState("");
+    const [articlesLoading, setArticlesLoading] = useState(true);
+    const [articlesError, setArticlesError] = useState("");
 
     useEffect(() => {
         let active = true;
+
+        async function loadCategories() {
+            try {
+                const data = await contentService.getCategories();
+
+                if (active) {
+                    setCategories(data);
+                    setCategoriesError("");
+                }
+            } catch (error) {
+                if (active) {
+                    setCategoriesError(error.message);
+                    notify(error.message, "error");
+                }
+            } finally {
+                if (active) {
+                    setCategoriesLoading(false);
+                }
+            }
+        }
 
         async function loadArticles() {
             try {
@@ -24,27 +52,27 @@ export default function PublicHome() {
 
                 if (active) {
                     setArticles(data);
-                    setError("");
+                    setArticlesError("");
                 }
-            } catch {
+            } catch (error) {
                 if (active) {
-                    setError(
-                        "No se ha podido cargar la información. Compruebe su conexión e inténtelo de nuevo más tarde."
-                    );
+                    setArticlesError(error.message);
+                    notify(error.message, "error");
                 }
             } finally {
                 if (active) {
-                    setLoading(false);
+                    setArticlesLoading(false);
                 }
             }
         }
 
+        loadCategories();
         loadArticles();
 
         return () => {
             active = false;
         };
-    }, []);
+    }, [notify]);
 
     const featuredArticle = articles[0] || null;
 
@@ -74,7 +102,11 @@ export default function PublicHome() {
                     <PublicSearchBar />
                 </section>
 
-                <CategoriesSection />
+                <CategoriesSection
+                    categories={categories}
+                    loading={categoriesLoading}
+                    error={categoriesError}
+                />
 
                 <section className="public-section">
                     <div className="section-heading">
@@ -84,21 +116,23 @@ export default function PublicHome() {
                         </div>
                     </div>
 
-                    {loading && (
-                        <p role="status">Cargando artículo destacado...</p>
+                    {articlesLoading && (
+                        <p role="status">
+                            Cargando artículo destacado...
+                        </p>
                     )}
 
-                    {!loading && error && (
+                    {!articlesLoading && articlesError && (
                         <p role="alert" className="error-message">
                             No se ha podido cargar el artículo destacado.
                         </p>
                     )}
 
-                    {!loading && !error && !featuredArticle && (
+                    {!articlesLoading && !articlesError && !featuredArticle && (
                         <p>No hay artículos disponibles actualmente.</p>
                     )}
 
-                    {!loading && !error && featuredArticle && (
+                    {!articlesLoading && !articlesError && featuredArticle && (
                         <Link
                             to={`/publico/articulo/${featuredArticle.idArticulo}`}
                             className="featured-article"
@@ -134,8 +168,8 @@ export default function PublicHome() {
 
                 <ArticleList
                     articles={newsArticles}
-                    loading={loading}
-                    error={error}
+                    loading={articlesLoading}
+                    error={articlesError}
                     title="Información y novedades"
                     eyebrow="PARA ESTAR AL DÍA"
                     emptyMessage="Todavía no hay noticias publicadas."
