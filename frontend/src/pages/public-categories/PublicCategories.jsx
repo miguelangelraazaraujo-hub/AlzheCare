@@ -130,7 +130,7 @@ export default function PublicCategories() {
     }
 
     return (
-        <div>
+        <div className="public-categories">
             <PublicHeader />
             <main className="public-categories-page">
                 <section className="categories-page-header">
