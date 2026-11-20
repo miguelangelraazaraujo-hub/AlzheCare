@@ -9,7 +9,6 @@ import {
     Newspaper,
 } from "lucide-react";
 
-
 import contentService from "../../services/contentService";
 import { useNotification } from "../../contexts/NotificationContext";
 import PublicHeader from "../../components/layout/PublicHeader";
@@ -28,11 +27,25 @@ const categoryIcons = {
     Noticias: Newspaper,
 };
 
+function parseCategoryIds(value) {
+    if (!value) return [];
+
+    return [...new Set(
+        value
+            .split(",")
+            .map((id) => id.trim())
+            .filter((id) => /^\d+$/.test(id))
+    )];
+}
+
 export default function PublicCategories() {
     const [searchParams, setSearchParams] = useSearchParams();
     const { notify } = useNotification();
 
-    const categoryId = searchParams.get("categoryId");
+    const search = searchParams.get("q") || "";
+    const categoryIds = parseCategoryIds(searchParams.get("categoryIds"));
+
+    const categoryIdsKey = categoryIds.join(",");
 
     const [categories, setCategories] = useState([]);
     const [categoriesLoading, setCategoriesLoading] = useState(true);
@@ -83,7 +96,10 @@ export default function PublicCategories() {
 
             try {
                 const data = await contentService.getArticles({
-                    categoryId: categoryId || undefined,
+                    search,
+                    categoryIds: categoryIdsKey
+                        ? categoryIdsKey.split(",").map(Number)
+                        : undefined,
                 });
 
                 if (active) {
@@ -106,33 +122,46 @@ export default function PublicCategories() {
         return () => {
             active = false;
         };
-    }, [categoryId, notify]);
+    }, [search, categoryIdsKey, notify]);
 
-    const selectedCategory = categories.find(
-        (category) => String(category.idCategoria) === categoryId
-    );
-
-    function handleCategorySelect(id) {
+    function handleSearch(query) {
         const nextParams = new URLSearchParams(searchParams);
 
-        if (String(id) === categoryId) {
-            nextParams.delete("categoryId");
+        if (query) {
+            nextParams.set("q", query);
         } else {
-            nextParams.set("categoryId", String(id));
+            nextParams.delete("q");
         }
 
         setSearchParams(nextParams);
     }
 
-    function handleClearFilter() {
+    function handleCategorySelect(id) {
+        const idString = String(id);
         const nextParams = new URLSearchParams(searchParams);
-        nextParams.delete("categoryId");
+        const currentIds = parseCategoryIds(
+            nextParams.get("categoryIds")
+        );
+
+        const updatedIds = currentIds.includes(idString)
+            ? currentIds.filter((currentId) => currentId !== idString)
+            : [...currentIds, idString];
+
+        if (updatedIds.length > 0) {
+            nextParams.set("categoryIds", updatedIds.join(","));
+        } else {
+            nextParams.delete("categoryIds");
+        }
+
         setSearchParams(nextParams);
     }
+
+    const hasFilters = Boolean(search || categoryIds.length > 0);
 
     return (
         <div className="public-categories">
             <PublicHeader />
+
             <main className="public-categories-page">
                 <section className="categories-page-header">
                     <span className="section-eyebrow">EXPLORA</span>
@@ -143,17 +172,24 @@ export default function PublicCategories() {
                     </p>
                 </section>
 
-                <section className="category-filters" aria-labelledby="category-filters-title">
+                <section
+                    className="category-filters"
+                    aria-labelledby="category-filters-title"
+                >
                     <div className="category-filters-heading">
                         <h2 id="category-filters-title">Categorías</h2>
 
-                        {categoryId && (
+                        {categoryIds.length > 0 && (
                             <button
                                 type="button"
                                 className="clear-category-filter"
-                                onClick={handleClearFilter}
+                                onClick={() => {
+                                    const nextParams = new URLSearchParams(searchParams);
+                                    nextParams.delete("categoryIds");
+                                    setSearchParams(nextParams);
+                                }}
                             >
-                                Quitar filtro
+                                Quitar categorías
                             </button>
                         )}
                     </div>
@@ -168,56 +204,75 @@ export default function PublicCategories() {
                         </p>
                     )}
 
-                    {!categoriesLoading && !categoriesError && categories.length === 0 && (
-                        <p>No hay categorías disponibles actualmente.</p>
-                    )}
+                    {!categoriesLoading &&
+                        !categoriesError &&
+                        categories.length === 0 && (
+                            <p>No hay categorías disponibles actualmente.</p>
+                        )}
 
-                    {!categoriesLoading && !categoriesError && categories.length > 0 && (
-                        <div className="category-filter-list">
-                            {categories.map((category) => {
-                                const Icon = categoryIcons[category.nombre] || Brain;
-                                const isSelected =
-                                    String(category.idCategoria) === categoryId;
+                    {!categoriesLoading &&
+                        !categoriesError &&
+                        categories.length > 0 && (
+                            <div className="category-filter-list">
+                                {categories.map((category) => {
+                                    const Icon =
+                                        categoryIcons[category.nombre] || Brain;
 
-                                return (
-                                    <button
-                                        key={category.idCategoria}
-                                        type="button"
-                                        className={`category-filter-button ${isSelected ? "active" : ""
-                                            }`}
-                                        onClick={() =>
-                                            handleCategorySelect(category.idCategoria)
-                                        }
-                                        aria-pressed={isSelected}
-                                    >
-                                        <Icon size={18} aria-hidden="true" />
-                                        <span>{category.nombre}</span>
-                                    </button>
-                                );
-                            })}
-                        </div>
-                    )}
-                    <PublicSearchBar />
+                                    const isSelected = categoryIds.includes(
+                                        String(category.idCategoria)
+                                    );
+
+                                    return (
+                                        <button
+                                            key={category.idCategoria}
+                                            type="button"
+                                            className={`category-filter-button ${isSelected ? "active" : ""
+                                                }`}
+                                            onClick={() =>
+                                                handleCategorySelect(
+                                                    category.idCategoria
+                                                )
+                                            }
+                                            aria-pressed={isSelected}
+                                        >
+                                            <Icon
+                                                size={18}
+                                                aria-hidden="true"
+                                            />
+                                            <span>{category.nombre}</span>
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        )}
+
+                    <PublicSearchBar
+                        key={search}
+                        value={search}
+                        onSearch={handleSearch}
+                    />
                 </section>
 
                 <section className="category-results">
                     <div className="category-results-heading">
                         <div>
-                            <span className="section-eyebrow">RESULTADOS</span>
+                            <span className="section-eyebrow">
+                                RESULTADOS
+                            </span>
+
                             <h2>
-                                {selectedCategory
-                                    ? selectedCategory.nombre
+                                {hasFilters
+                                    ? "Artículos encontrados"
                                     : "Todos los artículos"}
                             </h2>
-                            {selectedCategory?.descripcion && (
-                                <p>{selectedCategory.descripcion}</p>
-                            )}
                         </div>
 
                         {!articlesLoading && !articlesError && (
                             <span className="article-results-count">
                                 {articles.length}{" "}
-                                {articles.length === 1 ? "artículo" : "artículos"}
+                                {articles.length === 1
+                                    ? "artículo"
+                                    : "artículos"}
                             </span>
                         )}
                     </div>
@@ -229,8 +284,8 @@ export default function PublicCategories() {
                         title=""
                         eyebrow=""
                         emptyMessage={
-                            categoryId
-                                ? "No hay artículos disponibles en esta categoría."
+                            hasFilters
+                                ? "No se han encontrado artículos con los criterios seleccionados."
                                 : "Todavía no hay artículos publicados."
                         }
                     />
