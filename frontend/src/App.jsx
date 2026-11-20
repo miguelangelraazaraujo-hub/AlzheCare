@@ -49,7 +49,7 @@ export default function App() {
 
                 <Route path="/bienvenida" element={<WelcomeRoute />} />
 
-                <Route element={<GuestRoute />}>
+                <Route element={<GuestRoute allowAuthenticated />}>
                     <Route path="/publico" element={<PublicHome />} />
                     <Route path="/publico/categorias" element={<PublicCategories />} />
                 </Route>
@@ -82,7 +82,7 @@ export default function App() {
                         <Route path="/inicio" element={<PrivateHome />} />
 
                         <Route path="/buscar" element={<PlaceholderPage title="Buscar artículos" />} />
-                        <Route path="/categorias" element={<PlaceholderPage title="Categorías" />} />
+                        <Route path="/categorias" element={<Navigate to="/publico/categorias" replace />} />
                         <Route path="/mas" element={<More />} />
                         <Route path="/perfil" element={<PlaceholderPage title="Perfil" />} />
                         <Route path="/ayuda" element={<PlaceholderPage title="Ayuda" />} />
