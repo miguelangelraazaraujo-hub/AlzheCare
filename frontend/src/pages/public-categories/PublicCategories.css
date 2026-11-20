@@ -22,7 +22,7 @@
 }
 
 .categories-page-header p {
-    color: var(--text-secondary);
+    color: var(--text);
     line-height: 1.6;
 }
 
@@ -55,28 +55,28 @@
     align-items: center;
     gap: 9px;
     padding: 11px 16px;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border);
     border-radius: 999px;
     background: var(--surface-color);
-    color: var(--text-primary);
+    color: var(--text);
     font: inherit;
     cursor: pointer;
     transition: background-color 0.2s, border-color 0.2s, color 0.2s;
 }
 
 .category-filter-button:hover {
-    border-color: var(--primary-color);
+    border-color: var(--primary);
 }
 
 .category-filter-button.active {
-    background: var(--primary-color);
-    border-color: var(--primary-color);
+    background: var(--primary);
+    border-color: var(--primary);
     color: white;
 }
 
 .category-filter-button:focus-visible,
 .clear-category-filter:focus-visible {
-    outline: 3px solid var(--focus-color, var(--primary-color));
+    outline: 3px solid var(--focus-color, var(--primary));
     outline-offset: 3px;
 }
 
@@ -84,7 +84,7 @@
     padding: 8px 12px;
     border: 0;
     background: transparent;
-    color: var(--primary-color);
+    color: var(--primary);
     font: inherit;
     cursor: pointer;
 }
@@ -95,12 +95,12 @@
 
 .category-results-heading p {
     margin: 8px 0 0;
-    color: var(--text-secondary);
+    color: var(--text);
 }
 
 .article-results-count {
     flex-shrink: 0;
-    color: var(--text-secondary);
+    color: var(--secondary);
     font-size: 0.9rem;
 }
 

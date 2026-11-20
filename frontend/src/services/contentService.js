@@ -5,15 +5,15 @@ const contentService = {
         return request("/api/categories");
     },
 
-    getArticles({ search, categoryId } = {}) {
+    getArticles({ search, categoryIds } = {}) {
         const params = new URLSearchParams();
 
         if (search?.trim()) {
             params.set("search", search.trim());
         }
 
-        if (categoryId) {
-            params.set("categoryId", categoryId);
+        if (categoryIds?.length) {
+            params.set("categoryIds", categoryIds.join(","));
         }
 
         const query = params.toString();
