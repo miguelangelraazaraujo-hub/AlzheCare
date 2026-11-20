@@ -70,7 +70,7 @@ export default function CategoriesSection({
                         return (
                             <Link
                                 key={category.idCategoria}
-                                to={`/publico/categorias?categoryId=${category.idCategoria}`}
+                                to={`/publico/categorias?categoryIds=${category.idCategoria}`}
                                 className="category-card"
                             >
                                 <span className={`category-icon ${color}`}>

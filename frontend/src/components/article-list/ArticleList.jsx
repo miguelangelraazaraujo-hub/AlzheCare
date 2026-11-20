@@ -1,5 +1,10 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router";
-import "./ArticleList.css"
+import "./ArticleList.css";
+
+const MOBILE_BREAKPOINT = 700;
+const MOBILE_INCREMENT = 3;
+const DESKTOP_PAGE_SIZE = 5;
 
 function formatDate(date) {
     if (!date) return "Fecha no disponible";
@@ -17,7 +22,20 @@ function formatDate(date) {
     }).format(parsedDate);
 }
 
-export default function ArticleList({
+export default function ArticleList(props) {
+    const articlesKey = props.articles
+        .map(article => article.idArticulo)
+        .join(",");
+
+    return (
+        <ArticleListContent
+            key={`${articlesKey}-${props.limit ?? "all"}`}
+            {...props}
+        />
+    );
+}
+
+function ArticleListContent({
     articles = [],
     loading = false,
     error = "",
@@ -26,9 +44,51 @@ export default function ArticleList({
     emptyMessage = "No hay artículos disponibles.",
     limit,
 }) {
-    const visibleArticles = typeof limit === "number"
+    const [isMobile, setIsMobile] = useState(
+        () => window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches
+    );
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [visibleCount, setVisibleCount] = useState(MOBILE_INCREMENT);
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia(
+            `(max-width: ${MOBILE_BREAKPOINT}px)`
+        );
+
+        const handleChange = (event) => {
+            setIsMobile(event.matches);
+            setCurrentPage(1);
+            setVisibleCount(MOBILE_INCREMENT);
+        };
+
+        mediaQuery.addEventListener("change", handleChange);
+
+        return () => {
+            mediaQuery.removeEventListener("change", handleChange);
+        };
+    }, []);
+
+    const availableArticles = typeof limit === "number"
         ? articles.slice(0, limit)
         : articles;
+
+    const totalPages = Math.ceil(
+        availableArticles.length / DESKTOP_PAGE_SIZE
+    );
+
+    const visibleArticles = isMobile
+        ? availableArticles.slice(0, visibleCount)
+        : availableArticles.slice(
+            (currentPage - 1) * DESKTOP_PAGE_SIZE,
+            currentPage * DESKTOP_PAGE_SIZE
+        );
+
+    const hasMoreArticles = visibleCount < availableArticles.length;
+
+    function handlePageChange(page) {
+        setCurrentPage(page);
+    }
 
     return (
         <section className="public-section articles-section">
@@ -49,44 +109,102 @@ export default function ArticleList({
                 <p role="alert" className="error-message">{error}</p>
             )}
 
-            {!loading && !error && visibleArticles.length === 0 && (
+            {!loading && !error && availableArticles.length === 0 && (
                 <p>{emptyMessage}</p>
             )}
 
-            {!loading && !error && visibleArticles.length > 0 && (
-                <div className="articles-list">
-                    {visibleArticles.map((article) => (
-                        <Link
-                            key={article.idArticulo}
-                            to={`/publico/articulo/${article.idArticulo}`}
-                            className="article-item"
-                        >
-                            <div className="article-image">
-                                <div className="article-visual" aria-hidden="true">
-                                    +
+            {!loading && !error && availableArticles.length > 0 && (
+                <>
+                    <div className="articles-list">
+                        {visibleArticles.map((article) => (
+                            <Link
+                                key={article.idArticulo}
+                                to={`/publico/articulo/${article.idArticulo}`}
+                                className="article-item"
+                            >
+                                <div className="article-image">
+                                    <div className="article-visual" aria-hidden="true">
+                                        +
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div className="article-content">
-                                <span className="article-category">
-                                    {article.categorias?.map(
-                                        category => category.nombre
-                                    ).join(", ") || "INFORMACIÓN"}
+                                <div className="article-content">
+                                    <span className="article-category">
+                                        {article.categorias?.map(
+                                            category => category.nombre
+                                        ).join(", ") || "INFORMACIÓN"}
+                                    </span>
+
+                                    <strong>{article.titulo}</strong>
+
+                                    <span className="article-date">
+                                        {formatDate(article.fechaPublicacion)}
+                                    </span>
+                                </div>
+
+                                <span className="article-arrow" aria-hidden="true">
+                                    →
                                 </span>
+                            </Link>
+                        ))}
+                    </div>
 
-                                <strong>{article.titulo}</strong>
-
-                                <span className="article-date">
-                                    {formatDate(article.fechaPublicacion)}
-                                </span>
-                            </div>
-
-                            <span className="article-arrow" aria-hidden="true">
-                                →
+                    {isMobile && hasMoreArticles && (
+                        <div className="articles-pagination mobile-pagination">
+                            <button
+                                type="button"
+                                onClick={() => setVisibleCount(
+                                    count => count + MOBILE_INCREMENT
+                                )}
+                            >
+                                Cargar más artículos
+                            </button>
+                            <span>
+                                Mostrando {visibleArticles.length} de {availableArticles.length}
                             </span>
-                        </Link>
-                    ))}
-                </div>
+                        </div>
+                    )}
+
+                    {!isMobile && totalPages > 1 && (
+                        <nav
+                            className="articles-pagination desktop-pagination"
+                            aria-label="Paginación de artículos"
+                        >
+                            <button
+                                type="button"
+                                onClick={() => handlePageChange(currentPage - 1)}
+                                disabled={currentPage === 1}
+                            >
+                                Anterior
+                            </button>
+
+                            {Array.from(
+                                { length: totalPages },
+                                (_, index) => index + 1
+                            ).map(page => (
+                                <button
+                                    key={page}
+                                    type="button"
+                                    className={currentPage === page ? "active" : ""}
+                                    aria-current={
+                                        currentPage === page ? "page" : undefined
+                                    }
+                                    onClick={() => handlePageChange(page)}
+                                >
+                                    {page}
+                                </button>
+                            ))}
+
+                            <button
+                                type="button"
+                                onClick={() => handlePageChange(currentPage + 1)}
+                                disabled={currentPage === totalPages}
+                            >
+                                Siguiente
+                            </button>
+                        </nav>
+                    )}
+                </>
             )}
         </section>
     );
