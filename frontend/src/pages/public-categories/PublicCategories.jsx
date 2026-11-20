@@ -15,6 +15,7 @@ import { useNotification } from "../../contexts/NotificationContext";
 import PublicHeader from "../../components/layout/PublicHeader";
 import PublicBottomNav from "../../components/layout/PublicBottomNav";
 import ArticleList from "../../components/article-list/ArticleList";
+import PublicSearchBar from "../../components/public-search-bar/PublicSearchBar";
 
 import "./PublicCategories.css";
 
@@ -196,6 +197,7 @@ export default function PublicCategories() {
                             })}
                         </div>
                     )}
+                    <PublicSearchBar />
                 </section>
 
                 <section className="category-results">

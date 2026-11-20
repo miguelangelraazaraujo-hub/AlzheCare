@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-
+import "./PublicSearchBar.css"
 
 export default function PublicSearchBar() {
     const [query, setQuery] = useState("");
