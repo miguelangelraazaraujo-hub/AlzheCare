@@ -252,49 +252,6 @@
     font-weight: 800;
 }
 
-.articles-list {
-    display: grid;
-    gap: 12px;
-}
-
-.article-item {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 15px;
-    border: 1px solid var(--border);
-    border-radius: 15px;
-    background: var(--card);
-    color: inherit;
-    text-decoration: none;
-    transition: transform 160ms ease, box-shadow 160ms ease;
-}
-
-.article-visual {
-    width: 58px;
-    height: 58px;
-    flex-shrink: 0;
-    display: grid;
-    place-items: center;
-    border-radius: 13px;
-    background: #e7f8f5;
-    color: #009f91;
-    font-size: 35px;
-}
-
-.article-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-}
-
-.article-content strong {
-    font-size: 12px;
-    line-height: 1.6;
-}
-
 .article-date {
     color: #929aae;
     font-size: 10px;

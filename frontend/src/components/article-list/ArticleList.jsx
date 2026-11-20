@@ -1,9 +1,8 @@
 import { Link } from "react-router";
+import "./ArticleList.css"
 
 function formatDate(date) {
-    if (!date) {
-        return "Fecha no disponible";
-    }
+    if (!date) return "Fecha no disponible";
 
     const parsedDate = new Date(date);
 
@@ -27,28 +26,27 @@ export default function ArticleList({
     emptyMessage = "No hay artículos disponibles.",
     limit,
 }) {
-    const visibleArticles =
-        typeof limit === "number"
-            ? articles.slice(0, limit)
-            : articles;
+    const visibleArticles = typeof limit === "number"
+        ? articles.slice(0, limit)
+        : articles;
 
     return (
         <section className="public-section articles-section">
-            <div className="section-heading">
-                <div>
-                    <span className="section-eyebrow">{eyebrow}</span>
-                    <h2>{title}</h2>
+            {(title || eyebrow) && (
+                <div className="section-heading">
+                    <div>
+                        {eyebrow && (
+                            <span className="section-eyebrow">{eyebrow}</span>
+                        )}
+                        {title && <h2>{title}</h2>}
+                    </div>
                 </div>
-            </div>
-
-            {loading && (
-                <p role="status">Cargando artículos...</p>
             )}
 
+            {loading && <p role="status">Cargando artículos...</p>}
+
             {!loading && error && (
-                <p role="alert" className="error-message">
-                    {error}
-                </p>
+                <p role="alert" className="error-message">{error}</p>
             )}
 
             {!loading && !error && visibleArticles.length === 0 && (
@@ -63,18 +61,17 @@ export default function ArticleList({
                             to={`/publico/articulo/${article.idArticulo}`}
                             className="article-item"
                         >
-                            <span
-                                className="article-visual"
-                                aria-hidden="true"
-                            >
-                                +
-                            </span>
+                            <div className="article-image">
+                                <div className="article-visual" aria-hidden="true">
+                                    +
+                                </div>
+                            </div>
 
-                            <span className="article-content">
+                            <div className="article-content">
                                 <span className="article-category">
-                                    {article.categorias
-                                        ?.map((category) => category.nombre)
-                                        .join(", ") || "INFORMACIÓN"}
+                                    {article.categorias?.map(
+                                        category => category.nombre
+                                    ).join(", ") || "INFORMACIÓN"}
                                 </span>
 
                                 <strong>{article.titulo}</strong>
@@ -82,12 +79,9 @@ export default function ArticleList({
                                 <span className="article-date">
                                     {formatDate(article.fechaPublicacion)}
                                 </span>
-                            </span>
+                            </div>
 
-                            <span
-                                className="article-arrow"
-                                aria-hidden="true"
-                            >
+                            <span className="article-arrow" aria-hidden="true">
                                 →
                             </span>
                         </Link>

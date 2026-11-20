@@ -104,7 +104,6 @@
     font-size: 0.9rem;
 }
 
-/* ArticleList ya gestiona sus propios estados y resultados. */
 .category-results .articles-section {
     padding-top: 0;
 }
@@ -136,8 +135,4 @@
         padding: 9px 12px;
         font-size: 0.9rem;
     }
-}
-
-.category-results .section-heading {
-    display: none;
 }
