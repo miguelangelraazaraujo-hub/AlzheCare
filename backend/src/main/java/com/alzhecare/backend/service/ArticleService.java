@@ -18,7 +18,7 @@ public class ArticleService {
         this.articleRepository = articleRepository;
     }
 
-    public List<ArticleResponse> searchArticles(String search, Integer categoryId) {
+    public List<ArticleResponse> searchArticles(String search, List<Integer> categoryIds) {
 
         if (search != null) {
             search = search.trim();
@@ -28,7 +28,11 @@ public class ArticleService {
             }
         }
 
-        List<Article> articles = articleRepository.searchArticles(search, categoryId);
+        if (categoryIds != null && categoryIds.isEmpty()) {
+            categoryIds = null;
+        }
+
+        List<Article> articles = articleRepository.searchArticles(search, categoryIds);
 
         return articles.stream()
                 .map(article -> new ArticleResponse(
@@ -43,10 +47,8 @@ public class ArticleService {
                                 .map(relation -> new CategoryResponse(
                                         relation.getCategory().getIdCategoria(),
                                         relation.getCategory().getNombre(),
-                                        relation.getCategory().getDescripcion()
-                                ))
-                                .toList()
-                ))
+                                        relation.getCategory().getDescripcion()))
+                                .toList()))
                 .toList();
     }
 }

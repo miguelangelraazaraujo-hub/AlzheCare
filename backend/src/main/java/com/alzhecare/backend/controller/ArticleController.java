@@ -23,8 +23,7 @@ public class ArticleController {
     @GetMapping
     public List<ArticleResponse> searchArticles(
             @RequestParam(required = false) String search,
-            @RequestParam(required = false) Integer categoryId) {
-        return articleService.searchArticles(search, categoryId);
+            @RequestParam(required = false) List<Integer> categoryIds) {
+        return articleService.searchArticles(search, categoryIds);
     }
-
 }

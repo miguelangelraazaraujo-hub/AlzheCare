@@ -23,17 +23,17 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
                 OR LOWER(a.contenido) LIKE LOWER(CONCAT('%', :search, '%'))
             )
             AND (
-                :categoryId IS NULL
+                :categoryIds IS NULL
                 OR EXISTS (
                     SELECT ac2
                     FROM ArticleCategory ac2
                     WHERE ac2.article = a
-                    AND ac2.category.idCategoria = :categoryId
+                    AND ac2.category.idCategoria IN :categoryIds
                 )
             )
             ORDER BY a.fechaPublicacion DESC
             """)
     List<Article> searchArticles(
             @Param("search") String search,
-            @Param("categoryId") Integer categoryId);
+            @Param("categoryIds") List<Integer> categoryIds);
 }
