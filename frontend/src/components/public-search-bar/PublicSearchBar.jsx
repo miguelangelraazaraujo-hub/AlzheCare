@@ -18,7 +18,7 @@ export default function PublicSearchBar({ value = "", onSearch }) {
 
         navigate(
             search
-                ? `/publico/resultados?q=${encodeURIComponent(search)}`
+                ? `/publico/categorias?q=${encodeURIComponent(search)}`
                 : "/publico/busqueda"
         );
     };
