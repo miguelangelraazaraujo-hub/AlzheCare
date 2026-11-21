@@ -1,0 +1,55 @@
+.user-summary {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--logo);
+    color: var(--turquoise);
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.account-icon {
+    display: block;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    color: var(--turquoise);
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.user-info strong {
+    color: var(--text);
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.user-info span {
+    color: var(--muted);
+    font-size: 10px;
+}
+
+@media (max-width: 700px) {
+
+    .user-info {
+        display: none;
+    }
+
+    .avatar {
+        width: 36px;
+        height: 36px;
+    }
+}

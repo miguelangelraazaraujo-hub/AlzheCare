@@ -36,26 +36,14 @@
     text-decoration: none;
 }
 
-.account-link {
-    display: inline-flex;
+.public-header-user,
+.user-summary {
+    display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 10px 14px;
-    border: 1px solid var(--border);
-    border-radius: 11px;
-    background: var(--card);
-    color: var(--text);
-    font-size: 12px;
-    font-weight: 700;
-    text-decoration: none;
 }
 
-.account-icon {
-    display: block;
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-    color: var(--primary);
+.public-header-user {
+    gap: 22px;
 }
 
 @media (max-width: 700px) {
@@ -66,5 +54,9 @@
 
     .brand {
         font-size: 19px;
+    }
+
+    .public-header-user {
+        gap: 12px;
     }
 }

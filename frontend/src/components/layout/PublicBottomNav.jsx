@@ -17,7 +17,7 @@ export default function PublicBottomNav() {
         { label: "Ayuda", path: "/publico/ayuda", icon: CircleHelp },
         {
             label: isAuthenticated ? "Perfil" : "Cuenta",
-            path: isAuthenticated ? "/perfil" : "/login",
+            path: isAuthenticated ? "/inicio" : "/login",
             icon: UserRound,
         },
     ];
