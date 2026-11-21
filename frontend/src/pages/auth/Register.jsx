@@ -39,6 +39,8 @@ export default function Register() {
     }
 
     async function handleSubmit(event) {
+        if (isSubmitting) return;
+
         event.preventDefault();
         setError("");
 
@@ -63,7 +65,7 @@ export default function Register() {
             await register({
                 nombre: nombre.trim(),
                 apellidos: apellidos.trim(),
-                correoElectronico: correoElectronico.trim(),
+                correoElectronico: correoElectronico.trim().toLowerCase(),
                 contrasena,
                 rol: selectedRole.value,
             });
@@ -100,10 +102,12 @@ export default function Register() {
                             id="nombre"
                             type="text"
                             autoComplete="given-name"
+                            autoCapitalize="words"
                             value={nombre}
                             onChange={(event) => setNombre(event.target.value)}
                             maxLength={100}
                             placeholder="TU NOMBRE"
+                            disabled={isSubmitting}
                             required
                         />
                     </div>
@@ -114,10 +118,12 @@ export default function Register() {
                             id="apellidos"
                             type="text"
                             autoComplete="family-name"
+                            autoCapitalize="words"
                             value={apellidos}
                             onChange={(event) => setApellidos(event.target.value)}
                             maxLength={150}
                             placeholder="TUS APELLIDOS"
+                            disabled={isSubmitting}
                             required
                         />
                     </div>
@@ -130,12 +136,15 @@ export default function Register() {
                             id="correoElectronico"
                             type="email"
                             autoComplete="email"
+                            autoCapitalize="none"
+                            spellCheck={false}
                             value={correoElectronico}
                             onChange={(event) =>
                                 setCorreoElectronico(event.target.value)
                             }
                             maxLength={150}
                             placeholder="nombre@ejemplo.com"
+                            disabled={isSubmitting}
                             required
                         />
                     </div>
@@ -151,6 +160,7 @@ export default function Register() {
                                 setContrasena(event.target.value)
                             }
                             placeholder="Tu contraseña"
+                            disabled={isSubmitting}
                             minLength={8}
                             required
                         />
@@ -172,6 +182,7 @@ export default function Register() {
                                 setConfirmarContrasena(event.target.value)
                             }
                             placeholder="Escribe de nuevo la contraseña"
+                            disabled={isSubmitting}
                             required
                         />
                     </div>
