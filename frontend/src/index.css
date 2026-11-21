@@ -78,6 +78,17 @@ body {
     min-height: 100vh;
 }
 
+.page-loader {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--background);
+    padding: 24px;
+    color: var(--text);
+    font-size: 14px;
+}
+
 button {
     font: inherit;
     cursor: pointer;
