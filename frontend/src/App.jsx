@@ -1,4 +1,3 @@
-
 import { Navigate, Route, Routes, useNavigate } from "react-router";
 
 import Welcome from "./pages/welcome/Welcome";
@@ -52,23 +51,25 @@ export default function App() {
                 <Route element={<GuestRoute allowAuthenticated />}>
                     <Route path="/publico" element={<PublicHome />} />
                     <Route path="/publico/categorias" element={<PublicCategories />} />
+                    <Route
+                        path="/publico/ayuda"
+                        element={<PlaceholderPage title="Ayuda" />}
+                    />
                 </Route>
 
                 <Route
                     path="/publico/busqueda"
-                    element={<PlaceholderPage title="Buscar información" />}
+                    element={<Navigate to="/publico/categorias" replace />}
                 />
+
                 <Route
                     path="/publico/resultados"
-                    element={<PlaceholderPage title="Resultados de búsqueda" />}
+                    element={<Navigate to="/publico/categorias" replace />}
                 />
+
                 <Route
                     path="/publico/articulo/:id"
                     element={<PlaceholderPage title="Detalle del artículo" />}
-                />
-                <Route
-                    path="/publico/ayuda"
-                    element={<PlaceholderPage title="Ayuda" />}
                 />
 
                 <Route element={<GuestRoute />}>
@@ -80,8 +81,6 @@ export default function App() {
                 <Route element={<RequireAuth allowedRoles={["PATIENT", "CAREGIVER"]} />}>
                     <Route element={<PrivateLayout />}>
                         <Route path="/inicio" element={<PrivateHome />} />
-
-                        <Route path="/buscar" element={<PlaceholderPage title="Buscar artículos" />} />
                         <Route path="/categorias" element={<Navigate to="/publico/categorias" replace />} />
                         <Route path="/mas" element={<More />} />
                         <Route path="/perfil" element={<PlaceholderPage title="Perfil" />} />
