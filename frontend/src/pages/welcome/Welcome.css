@@ -21,7 +21,6 @@
     box-shadow: 0 24px 80px rgba(35, 49, 103, 0.09);
 }
 
-.welcome-header,
 .brand,
 .welcome-footer,
 .welcome-actions {
@@ -48,7 +47,6 @@
     background: var(--logo);
 }
 
-.skip-button,
 .back-to-intro {
     border: 0;
     background: transparent;
@@ -57,7 +55,6 @@
     font-weight: 600;
 }
 
-.skip-button:hover,
 .back-to-intro:hover {
     color: var(--primary);
 }
