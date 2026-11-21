@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import Logo from "../../components/common/Logo";
@@ -13,28 +12,7 @@ export default function Login() {
 
     const [correoElectronico, setCorreoElectronico] = useState("");
     const [contrasena, setContrasena] = useState("");
-    // const [error, setError] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
-
-    // async function handleSubmit(event) {
-    //     event.preventDefault();
-
-    //     setError("");
-    //     setIsSubmitting(true);
-
-    //     try {
-    //         await login({
-    //             correoElectronico,
-    //             contrasena,
-    //         });
-
-    //         navigate("/inicio", { replace: true });
-    //     } catch (err) {
-    //         setError(err.message || "No se pudo iniciar sesión.");
-    //     } finally {
-    //         setIsSubmitting(false);
-    //     }
-    // }
 
     async function handleSubmit(event) {
         event.preventDefault();
