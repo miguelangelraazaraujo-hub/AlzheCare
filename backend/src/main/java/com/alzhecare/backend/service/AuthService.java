@@ -11,6 +11,8 @@ import com.alzhecare.backend.dto.request.LoginRequest;
 import com.alzhecare.backend.dto.request.RegisterRequest;
 import com.alzhecare.backend.dto.response.AuthResponse;
 import com.alzhecare.backend.dto.response.UserResponse;
+import com.alzhecare.backend.exception.DuplicateEmailException;
+import com.alzhecare.backend.exception.InvalidCredentialsException;
 import com.alzhecare.backend.model.User;
 import com.alzhecare.backend.repository.UserRepository;
 
@@ -37,9 +39,7 @@ public class AuthService {
         String correo = normalizeEmail(request.correoElectronico());
 
         if (userRepository.existsByCorreoElectronico(correo)) {
-            throw new IllegalArgumentException(
-                "Ya existe una cuenta con ese correo electrónico"
-            );
+            throw new DuplicateEmailException();
         }
 
         if (request.contrasena().getBytes(StandardCharsets.UTF_8).length > 72) {
@@ -69,18 +69,14 @@ public class AuthService {
         String correo = normalizeEmail(request.correoElectronico());
 
         User user = userRepository.findByCorreoElectronico(correo)
-            .orElseThrow(() -> new IllegalArgumentException(
-                "Correo electrónico o contraseña incorrectos"
-            ));
+            .orElseThrow(() -> new InvalidCredentialsException());
 
         if (request.contrasena().getBytes(StandardCharsets.UTF_8).length > 72
             || !passwordEncoder.matches(
                 request.contrasena(),
                 user.getContrasenaHash()
             )) {
-            throw new IllegalArgumentException(
-                "Correo electrónico o contraseña incorrectos"
-            );
+            throw new InvalidCredentialsException();
         }
 
         return createAuthResponse(user);
