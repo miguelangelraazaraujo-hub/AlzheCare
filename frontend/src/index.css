@@ -93,4 +93,11 @@ button:focus-visible {
     background: var(--switch);
     border: var(--border);
     font-size: larger;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.switch-mode:focus-visible {
+    outline: 3px solid var(--turquoise);
+    outline-offset: 3px;
 }

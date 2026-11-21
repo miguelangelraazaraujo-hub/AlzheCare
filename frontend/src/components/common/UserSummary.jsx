@@ -17,9 +17,14 @@ export default function UserSummary() {
     return (
 
         <div className="user-summary">
-            <div className="avatar" aria-label={isAuthenticated
-                ? `Usuario ${user?.nombre ?? ""} ${user?.apellidos ?? ""}`.trim()
-                : "Invitado"}
+            <div
+                className="avatar"
+                role="img"
+                aria-label={
+                    isAuthenticated
+                        ? `Usuario ${user?.nombre ?? ""} ${user?.apellidos ?? ""}`.trim()
+                        : "Invitado"
+                }
             >
                 {isAuthenticated && initials ? (
                     initials

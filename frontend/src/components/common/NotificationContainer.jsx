@@ -36,11 +36,7 @@ export default function NotificationContainer() {
     const { notifications, dismissNotification } = useNotification();
 
     return (
-        <div
-            className="notification-container"
-            aria-live="polite"
-            aria-relevant="additions removals"
-        >
+        <div className="notification-container">
             {notifications.map((notification) => {
                 const config =
                     notificationConfig[notification.type] ||

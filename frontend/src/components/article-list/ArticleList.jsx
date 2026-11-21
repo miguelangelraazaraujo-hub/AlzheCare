@@ -23,7 +23,9 @@ function formatDate(date) {
 }
 
 export default function ArticleList(props) {
-    const articlesKey = props.articles
+    const articles = props.articles ?? [];
+
+    const articlesKey = articles
         .map(article => article.idArticulo)
         .join(",");
 
@@ -91,7 +93,10 @@ function ArticleListContent({
     }
 
     return (
-        <section className="public-section articles-section">
+        <section
+            className="public-section articles-section"
+            aria-label={title || "Resultados de artículos"}
+        >
             {(title || eyebrow) && (
                 <div className="section-heading">
                     <div>
@@ -110,7 +115,7 @@ function ArticleListContent({
             )}
 
             {!loading && !error && availableArticles.length === 0 && (
-                <p>{emptyMessage}</p>
+                <p role="status">{emptyMessage}</p>
             )}
 
             {!loading && !error && availableArticles.length > 0 && (
@@ -121,6 +126,8 @@ function ArticleListContent({
                                 key={article.idArticulo}
                                 to={`/publico/articulo/${article.idArticulo}`}
                                 className="article-item"
+                                aria-label={`${article.titulo}. Categorías: ${article.categorias?.map(category => category.nombre).join(", ") || "Información"
+                                    }. Fecha de publicación: ${formatDate(article.fechaPublicacion)}. Leer artículo`}
                             >
                                 <div className="article-image">
                                     <div className="article-visual" aria-hidden="true">
@@ -135,11 +142,14 @@ function ArticleListContent({
                                         ).join(", ") || "INFORMACIÓN"}
                                     </span>
 
-                                    <strong>{article.titulo}</strong>
+                                    <h3 className="article-title">{article.titulo}</h3>
 
-                                    <span className="article-date">
+                                    <time
+                                        className="article-date"
+                                        dateTime={article.fechaPublicacion || undefined}
+                                    >
                                         {formatDate(article.fechaPublicacion)}
-                                    </span>
+                                    </time>
                                 </div>
 
                                 <span className="article-arrow" aria-hidden="true">

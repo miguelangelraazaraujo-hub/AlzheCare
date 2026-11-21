@@ -24,8 +24,17 @@ export default function PublicSearchBar({ value = "", onSearch }) {
     };
 
     return (
-        <form className="public-search" onSubmit={handleSubmit}>
+        <form
+            className="public-search"
+            onSubmit={handleSubmit}
+            role="search"
+            aria-label="Buscar artículos"
+        >
             <span className="search-icon" aria-hidden="true">⌕</span>
+
+            <label className="visually-hidden" htmlFor="public-search-input">
+                Buscar información
+            </label>
 
             <input
                 type="search"

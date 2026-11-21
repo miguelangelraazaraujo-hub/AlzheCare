@@ -189,7 +189,7 @@ export default function PublicCategories() {
                                     setSearchParams(nextParams);
                                 }}
                             >
-                                Quitar categorías
+                                Quitar filtros de categoría
                             </button>
                         )}
                     </div>
@@ -213,7 +213,11 @@ export default function PublicCategories() {
                     {!categoriesLoading &&
                         !categoriesError &&
                         categories.length > 0 && (
-                            <div className="category-filter-list">
+                            <div
+                                className="category-filter-list"
+                                role="group"
+                                aria-label="Filtrar artículos por categoría"
+                            >
                                 {categories.map((category) => {
                                     const Icon =
                                         categoryIcons[category.nombre] || Brain;
@@ -268,7 +272,11 @@ export default function PublicCategories() {
                         </div>
 
                         {!articlesLoading && !articlesError && (
-                            <span className="article-results-count">
+                            <span
+                                className="article-results-count"
+                                role="status"
+                                aria-live="polite"
+                            >
                                 {articles.length}{" "}
                                 {articles.length === 1
                                     ? "artículo"
