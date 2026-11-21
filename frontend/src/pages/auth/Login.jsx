@@ -16,11 +16,14 @@ export default function Login() {
 
     async function handleSubmit(event) {
         event.preventDefault();
+
+        if (isSubmitting) return;
+
         setIsSubmitting(true);
 
         try {
             await login({
-                correoElectronico,
+                correoElectronico: correoElectronico.trim().toLowerCase(),
                 contrasena,
             });
 
@@ -53,14 +56,18 @@ export default function Login() {
                         </label>
                         <input
                             id="correoElectronico"
+                            name="correoElectronico"
                             type="email"
                             autoComplete="email"
+                            autoCapitalize="none"
+                            spellCheck="false"
                             value={correoElectronico}
                             onChange={(event) =>
                                 setCorreoElectronico(event.target.value)
                             }
                             placeholder="nombre@ejemplo.com"
                             required
+                            disabled={isSubmitting}
                         />
                     </div>
 
@@ -68,6 +75,7 @@ export default function Login() {
                         <label htmlFor="contrasena">Contraseña</label>
                         <input
                             id="contrasena"
+                            name="contrasena"
                             type="password"
                             autoComplete="current-password"
                             value={contrasena}
@@ -76,6 +84,7 @@ export default function Login() {
                             }
                             placeholder="Introduce tu contraseña"
                             required
+                            disabled={isSubmitting}
                         />
                     </div>
 
@@ -96,6 +105,7 @@ export default function Login() {
                 <Link to="/publico" className="auth-back">
                     Continuar sin cuenta
                 </Link>
+
                 <Link to="/bienvenida" className="auth-back">
                     Volver
                 </Link>

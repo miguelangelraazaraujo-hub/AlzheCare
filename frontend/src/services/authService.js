@@ -9,7 +9,11 @@ function getErrorMessage(status, data, endpoint) {
             return "El correo electrónico o la contraseña no son correctos.";
         }
 
-        return "Tu sesión ha caducado. Inicia sesión de nuevo.";
+        if (endpoint.includes("/me")) {
+            return "Tu sesión ha caducado. Inicia sesión de nuevo.";
+        }
+
+        return "No se ha autorizado la solicitud.";
     }
 
     if (status === 403) {

@@ -38,44 +38,6 @@ export default function Register() {
         return <Navigate to="/registro" replace />;
     }
 
-    // async function handleSubmit(event) {
-    //     event.preventDefault();
-    //     setError("");
-
-    //     if (contrasena !== confirmarContrasena) {
-    //         setError("Las contraseñas no coinciden.");
-    //         return;
-    //     }
-
-    //     if (contrasena.length < 8) {
-    //         setError("La contraseña debe tener al menos 8 caracteres.");
-    //         return;
-    //     }
-
-    //     if (new TextEncoder().encode(contrasena).length > 72) {
-    //         setError("La contraseña supera el máximo permitido de 72 bytes.");
-    //         return;
-    //     }
-
-    //     setIsSubmitting(true);
-
-    //     try {
-    //         await register({
-    //             nombre: nombre.trim(),
-    //             apellidos: apellidos.trim(),
-    //             correoElectronico: correoElectronico.trim(),
-    //             contrasena,
-    //             rol: selectedRole.value,
-    //         });
-
-    //         navigate("/inicio", { replace: true });
-    //     } catch (err) {
-    //         setError(err.message || "No se pudo crear la cuenta.");
-    //     } finally {
-    //         setIsSubmitting(false);
-    //     }
-    // }
-
     async function handleSubmit(event) {
         event.preventDefault();
         setError("");
