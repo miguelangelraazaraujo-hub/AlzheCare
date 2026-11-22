@@ -44,14 +44,23 @@ export default function CategoriesSection({
                 </Link>
             </div>
 
-            {loading && (
-                <p role="status">Cargando categorías...</p>
-            )}
-
             {!loading && error && (
                 <p role="alert" className="error-message">
                     No se pudieron cargar las categorías.
                 </p>
+            )}
+
+            {loading && (
+                <div className="category-grid category-skeleton-grid" aria-hidden="true">
+                    {Array.from({ length: 6 }).map((_, index) => (
+                        <div className="category-card category-skeleton" key={index}>
+                            <div className="skeleton-block skeleton-icon"></div>
+                            <div className="skeleton-line skeleton-title"></div>
+                            <div className="skeleton-line skeleton-text"></div>
+                            <div className="skeleton-line skeleton-text short"></div>
+                        </div>
+                    ))}
+                </div>
             )}
 
             {!loading && !error && categories.length === 0 && (
