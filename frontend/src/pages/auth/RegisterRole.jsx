@@ -18,7 +18,7 @@ export default function RegisterRole() {
                     </p>
                 </div>
 
-                <div className="role-options">
+                <div className="role-options" aria-label="Seleccionar tipo de cuenta">
                     <Link
                         to="/registro/paciente"
                         className="role-option"

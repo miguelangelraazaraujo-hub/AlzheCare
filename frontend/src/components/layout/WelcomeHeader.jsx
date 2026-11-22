@@ -3,6 +3,8 @@ import ModeSwitch from "../common/ModeSwitch";
 import Logo from "../common/Logo";
 import { useWelcome } from "../../contexts/WelcomeContext";
 
+import "./WelcomeHeader.css";
+
 export default function WelcomeHeader() {
 
     const { isLastSlide, finishIntro } = useWelcome();

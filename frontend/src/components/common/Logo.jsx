@@ -2,8 +2,8 @@ import { Link } from "react-router";
 import { useTheme } from "../../contexts/ThemeContext";
 import { useAuth } from "../../contexts/AuthContext";
 
-import logoLight from "../../assets/AlzheCare.png";
-import logoDark from "../../assets/AlzheCare-dark.png";
+import logoLight from "../../assets/AlzheCare35.png";
+import logoDark from "../../assets/AlzheCare-dark35.png";
 
 export default function Logo({ to }) {
     const { theme } = useTheme();
@@ -26,7 +26,7 @@ export default function Logo({ to }) {
                 />
             </span>
 
-            <span className="auth-brand">AlzheCare</span>
+            <span className="logo-brand">AlzheCare</span>
         </Link>
     );
 }

@@ -17,8 +17,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> handleValidation(
-        MethodArgumentNotValidException exception
-    ) {
+            MethodArgumentNotValidException exception) {
         Map<String, String> errors = new HashMap<>();
 
         for (FieldError error : exception.getBindingResult().getFieldErrors()) {
@@ -34,24 +33,39 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<Map<String, String>> handleIllegalArgument(
-        IllegalArgumentException exception
-    ) {
+            IllegalArgumentException exception) {
         return ResponseEntity
-            .badRequest()
-            .body(Map.of("message", exception.getMessage()));
+                .badRequest()
+                .body(Map.of("message", exception.getMessage()));
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<Map<String, String>> handleDataIntegrity() {
         return ResponseEntity
-            .status(HttpStatus.CONFLICT)
-            .body(Map.of("message", "No se ha podido guardar el usuario por un conflicto con los datos"));
+                .status(HttpStatus.CONFLICT)
+                .body(Map.of("message", "No se ha podido guardar el usuario por un conflicto con los datos"));
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<Map<String, String>> handleUnreadableMessage() {
         return ResponseEntity
-            .badRequest()
-            .body(Map.of("message", "El cuerpo de la petición no tiene un formato válido"));
+                .badRequest()
+                .body(Map.of("message", "El cuerpo de la petición no tiene un formato válido"));
+    }
+
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ResponseEntity<Map<String, String>> handleInvalidCredentials(
+            InvalidCredentialsException exception) {
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .body(Map.of("message", exception.getMessage()));
+    }
+
+    @ExceptionHandler(DuplicateEmailException.class)
+    public ResponseEntity<Map<String, String>> handleDuplicateEmail(
+            DuplicateEmailException exception) {
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(Map.of("message", exception.getMessage()));
     }
 }

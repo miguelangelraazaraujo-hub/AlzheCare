@@ -1,6 +1,8 @@
 import { Link } from "react-router";
 import { useAuth } from "../../contexts/AuthContext";
 
+import "./PlaceholderPage.css";
+
 export default function PlaceholderPage({ title }) {
     const { isAuthenticated } = useAuth();
 

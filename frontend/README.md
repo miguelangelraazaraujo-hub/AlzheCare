@@ -1,8 +1,8 @@
-# AlzheCare – Segunda entrega: Autenticación y Áreas de Usuario
+# AlzheCare – Tercera entrega: Búsqueda, Filtrado y Mejora de la Interfaz
 
 Aplicación orientada a proporcionar información y asistencia a personas con Alzheimer, sus familiares y cuidadores.
 
-Esta segunda entrega amplía la estructura inicial de AlzheCare mediante la incorporación del sistema de autenticación, la gestión de usuarios y roles, la conexión entre el frontend y el backend, y la diferenciación entre el área pública y el área privada de la aplicación.
+Esta tercera entrega amplía AlzheCare mediante la implementación funcional de la consulta de artículos, la búsqueda textual y el filtrado por categorías. También incorpora mejoras en la experiencia de usuario, la navegación, la accesibilidad y la adaptación de la interfaz a diferentes tamaños de pantalla.
 
 ---
 
@@ -27,47 +27,56 @@ Esta segunda entrega amplía la estructura inicial de AlzheCare mediante la inco
 
 ## 1. Información general
 
-AlzheCare es un proyecto de aplicación móvil diseñado para facilitar el acceso a información sobre la enfermedad de Alzheimer y ofrecer un espacio de apoyo a pacientes, familiares y cuidadores.
+AlzheCare es un proyecto de aplicación diseñado para facilitar el acceso a información sobre la enfermedad de Alzheimer y ofrecer un espacio de apoyo a pacientes, familiares y cuidadores.
 
 La aplicación se divide en dos áreas principales:
 
 - **Área pública:** permite consultar información relacionada con el Alzheimer, sus cuidados, tratamientos, asistencia y noticias, sin necesidad de registrarse.
 - **Área personal:** ofrece funcionalidades privadas para usuarios registrados, diferenciando entre pacientes y cuidadores mediante un sistema de roles.
 
-### Segunda entrega: Autenticación y Áreas de Usuario
+### Tercera entrega: Búsqueda, Filtrado y Mejora de la Interfaz
 
-En esta fase se ha ampliado el desarrollo inicial, incorporando tanto funcionalidades del frontend como la infraestructura necesaria para gestionar usuarios y autenticar sus sesiones.
+En esta fase se ha ampliado el desarrollo de las entregas anteriores, centrándose especialmente en hacer funcional la consulta de contenidos y mejorar la experiencia de navegación.
 
 Los objetivos principales han sido:
 
-- Completar la estructura de navegación pública y privada.
-- Desarrollar las pantallas de inicio de sesión y registro.
-- Incorporar la selección del tipo de usuario durante el registro.
-- Implementar un sistema de autenticación mediante JWT.
-- Desarrollar el backend utilizando Spring Boot.
-- Configurar la conexión con la base de datos MariaDB.
-- Gestionar los roles de paciente y cuidador.
-- Proteger las rutas privadas de la aplicación.
-- Incorporar un sistema de temas claro y oscuro.
-- Preparar la arquitectura para ampliar las funcionalidades en próximas entregas.
+- Implementar la consulta funcional de artículos y categorías.
+- Incorporar un buscador de artículos.
+- Permitir aplicar varios filtros de categoría simultáneamente.
+- Mostrar los filtros activos y permitir eliminarlos individualmente.
+- Incorporar la opción de limpiar todos los filtros.
+- Añadir paginación y carga progresiva de resultados.
+- Mejorar la presentación de los estados de carga, error y ausencia de resultados.
+- Incorporar un sistema global de notificaciones.
+- Mejorar la adaptación de la interfaz a dispositivos móviles y pantallas de mayor tamaño.
+- Reforzar la accesibilidad de los componentes interactivos.
+- Optimizar la carga de recursos y la tipografía utilizada por la aplicación.
 
-**Estado del proyecto:** En desarrollo. La segunda entrega incorpora la autenticación funcional y establece la estructura de las áreas pública y privada.
+**Estado del proyecto:** En desarrollo. La tercera entrega amplía la funcionalidad de consulta de contenidos y mejora la interfaz, manteniendo la arquitectura de autenticación y las áreas pública y privada de las entregas anteriores.
 
 ---
 
 ## 2. Funcionalidades implementadas
 
-En esta segunda entrega se han incorporado las siguientes funcionalidades:
+En esta tercera entrega se han incorporado las siguientes funcionalidades:
 
 ### Área pública
 
 - **Página de bienvenida:** pantalla inicial desde la que se puede acceder al área informativa, iniciar sesión o registrarse.
 - **Inicio público:** página principal con información introductoria sobre AlzheCare, categorías, buscador visual, artículos destacados y noticias.
 - **Navegación pública:** menú inferior para acceder a las principales secciones informativas.
-- **Estructura de categorías:** organización inicial de los contenidos en tratamientos, cuidados, asistencia y noticias.
-- **Secciones preparadas:** estructura de rutas para futuras funcionalidades como búsqueda, resultados, artículos y ayuda.
+- **Consulta de categorías:** visualización de las categorías disponibles para organizar los contenidos.
+- **Listado de artículos:** consulta de los artículos disponibles mediante la conexión con el backend.
+- **Buscador de artículos:** búsqueda textual para localizar contenidos.
+- **Filtros por categorías:** posibilidad de seleccionar varias categorías y combinar los filtros.
+- **Gestión de filtros activos:** visualización de los filtros aplicados mediante elementos individuales que permiten eliminarlos sin tener que restablecer el resto.
+- **Limpieza de filtros:** opción para eliminar todos los filtros aplicados y volver a consultar el conjunto de artículos.
+- **Paginación adaptativa:** distribución de los resultados en páginas o bloques de carga, adaptándose al espacio disponible en pantalla.
+- **Estados de consulta:** presentación de indicadores de carga, mensajes de error y avisos cuando no existen resultados.
 
 ### Autenticación y registro
+
+Se mantienen las funcionalidades implementadas en la segunda entrega:
 
 - **Inicio de sesión:** formulario conectado con el backend para autenticar usuarios registrados.
 - **Registro de usuarios:** formulario dividido en dos pasos, comenzando por la selección del tipo de usuario.
@@ -79,9 +88,11 @@ En esta segunda entrega se han incorporado las siguientes funcionalidades:
 
 ### Área privada
 
+Se mantienen las funcionalidades de la segunda entrega:
+
 - **Inicio privado:** página principal para usuarios autenticados, con un mensaje personalizado y accesos directos a las principales secciones.
 - **Identificación del usuario:** visualización del nombre y del rol correspondiente.
-- **Navegación privada:** menú inferior con accesos a inicio, búsqueda, categorías y más opciones.
+- **Navegación privada:** menú inferior con accesos a inicio, artículos y más opciones.
 - **Apartado Más:** acceso a las opciones de perfil, ayuda, contacto y cierre de sesión.
 - **Protección de rutas:** las páginas privadas requieren una sesión autenticada y un rol autorizado.
 
@@ -93,6 +104,10 @@ Actualmente, pacientes y cuidadores comparten la misma estructura de navegación
 - **Preferencia de tema:** conservación de la selección del usuario entre sesiones.
 - **Logotipo adaptable:** utilización de diferentes versiones del logotipo según el tema seleccionado.
 - **Componentes reutilizables:** organización de elementos comunes para mantener la coherencia visual.
+- **Diseño responsive:** adaptación de los principales componentes y listados a diferentes tamaños de pantalla.
+- **Notificaciones globales:** sistema centralizado para mostrar mensajes de confirmación, errores y avisos.
+- **Tipografía optimizada:** incorporación de Montserrat como recurso local en formato WOFF2.
+- **Carga optimizada de páginas:** división de la carga de componentes mediante carga diferida para reducir los recursos iniciales de la aplicación.
 
 Algunas secciones ya cuentan con su estructura de navegación, pero todavía muestran contenido provisional mientras se desarrollan sus funcionalidades definitivas.
 
@@ -110,7 +125,7 @@ Las principales tecnologías y herramientas utilizadas en esta entrega son:
 - **[JavaScript](https://developer.mozilla.org/es/docs/Web/JavaScript)** – Lenguaje utilizado para implementar la lógica de los componentes y la comunicación con el backend.
 - **[CSS](https://developer.mozilla.org/es/docs/Web/CSS)** – Utilizado para definir los estilos, la distribución de los elementos y los temas visuales.
 - **[Lucide React](https://lucide.dev/)** – Biblioteca de iconos utilizada en los diferentes componentes de la interfaz.
-- **Context API** – Utilizada para gestionar estados globales como la autenticación, el tema visual y otros datos compartidos.
+- **Context API** – Utilizada para gestionar estados globales como la autenticación, el tema visual, las notificaciones y otros datos compartidos.
 
 ### Backend
 
@@ -190,10 +205,23 @@ En Windows, comprueba que el proyecto compila correctamente:
 .\mvnw.cmd clean compile
 ```
 
-Inicia el servidor de Spring Boot:
+Para probar el funcionamiento puedes generar una clave en base 64 desde PowerShell con:
 
-```bash
-.\mvnw.cmd spring-boot:run
+```powershell
+$bytes = New-Object byte[] 32
+
+$rng = [System.Security.Cryptography.RNGCryptoServiceProvider]::new()
+$rng.GetBytes($bytes)
+$rng.Dispose()
+
+[Convert]::ToBase64String($bytes)
+```
+
+Crea la variable de entorno e inicia el servidor de Spring Boot:
+
+```powershell
+$env:JWT_SECRET="TU_CLAVE_BASE64_GENERADA"
+.\mvnw.cmd clean spring-boot:run
 ```
 
 Por defecto, el backend estará disponible en:
@@ -249,7 +277,7 @@ Ctrl + C
 | Compilar backend (Windows) | `.\mvnw.cmd clean compile` |
 | Ejecutar backend (Windows) | `.\mvnw.cmd spring-boot:run` |
 
-**Importante:** para probar las funcionalidades de registro e inicio de sesión es necesario que el backend y MariaDB estén funcionando correctamente. El frontend se comunica con el backend mediante peticiones HTTP a la API REST; no accede directamente a la base de datos.
+**Importante:** para probar las funcionalidades de registro, inicio de sesión y consulta de artículos es necesario que el backend y MariaDB estén funcionando correctamente. El frontend se comunica con el backend mediante peticiones HTTP a la API REST; no accede directamente a la base de datos.
 
 ---
 
@@ -264,7 +292,7 @@ La aplicación cuenta ahora con dos entornos diferenciados, adaptados al tipo de
 - **Entorno público:** facilita el acceso a información general sin necesidad de crear una cuenta.
 - **Entorno privado:** proporciona acceso a las funcionalidades destinadas a usuarios registrados.
 
-Se han mantenido los siguientes criterios de diseño:
+Se han mantenido y ampliado los siguientes criterios de diseño:
 
 - Navegación clara y sencilla.
 - Organización visual de los contenidos.
@@ -273,6 +301,10 @@ Se han mantenido los siguientes criterios de diseño:
 - Componentes reutilizables para mantener la coherencia entre pantallas.
 - Separación entre las funcionalidades públicas y privadas.
 - Identificación visual del usuario y de su rol.
+- Búsqueda y filtrado de contenidos sin necesidad de navegar entre múltiples pantallas.
+- Identificación clara de los filtros activos y posibilidad de modificarlos individualmente.
+- Información sobre el número de resultados obtenidos.
+- Mensajes informativos cuando no existen resultados o se produce un error.
 
 La navegación se gestiona mediante React Router, mientras que la autenticación y los estados compartidos se administran mediante Context API.
 
@@ -289,6 +321,9 @@ Se mantienen los siguientes criterios:
 - Navegación sencilla y consistente.
 - Evitar la sobrecarga de información y los elementos visuales innecesarios.
 - Mantener una estructura visual coherente entre las diferentes secciones.
+- Incorporar etiquetas y atributos accesibles en los elementos interactivos.
+- Proporcionar información comprensible sobre los estados de carga, error y resultados.
+- Mantener indicadores visuales de foco para facilitar la navegación mediante teclado.
 
 Estos criterios servirán como referencia para el desarrollo de las siguientes funcionalidades.
 
@@ -309,7 +344,7 @@ La paleta de colores utilizada es la siguiente:
 | Advertencia | `#E6A11A` | Avisos preventivos |
 | Error | `#D94343` | Errores y acciones destructivas |
 
-La tipografía seleccionada es **Montserrat**, utilizada para mantener una apariencia uniforme y facilitar la lectura.
+La tipografía seleccionada es **Montserrat**, utilizada para mantener una apariencia uniforme y facilitar la lectura. Se ha incorporado como recurso local en formato WOFF2 para evitar depender de la descarga de la fuente desde un servicio externo.
 
 También se ha incorporado un modo oscuro que utiliza fondos azul oscuro, superficies diferenciadas y textos claros. El usuario puede alternar entre ambos temas y conservar su preferencia.
 
@@ -330,6 +365,10 @@ AlzheCare/
 │   └── mvnw
 │
 ├── frontend/
+│   ├── public/
+│   │   └── fonts/
+│   │       └── montserrat-variable.woff2
+│   │
 │   ├── src/
 │   │   ├── assets/
 │   │   ├── components/
@@ -344,6 +383,8 @@ AlzheCare/
 └── README.md
 ```
 
+*La estructura mostrada es una representación general de las carpetas principales del proyecto.*
+
 ### Navegación pública
 
 Las principales rutas públicas son:
@@ -353,13 +394,13 @@ Las principales rutas públicas son:
 | `/` | Bienvenida | Implementada |
 | `/bienvenida` | Bienvenida | Implementada |
 | `/publico` | Inicio público | Implementada |
-| `/publico/categorias` | Categorías | Estructura provisional |
-| `/publico/busqueda` | Buscador | Estructura provisional |
-| `/publico/resultados` | Resultados | Estructura provisional |
+| `/publico/categorias` | Categorías y consulta de artículos | Implementada |
+| `/publico/busqueda` | Buscador | Redirige a categorías |
+| `/publico/resultados` | Resultados | Redirige a categorías |
 | `/publico/articulo/:id` | Detalle de artículo | Estructura provisional |
 | `/publico/ayuda` | Ayuda | Estructura provisional |
 
-El inicio público está destinado a visitantes. Si un usuario ya ha iniciado sesión, se le redirige al área privada.
+El inicio público y la consulta de categorías están disponibles tanto para visitantes como para usuarios autenticados. De esta forma, los contenidos informativos pueden consultarse independientemente de si se ha iniciado sesión.
 
 ### Navegación de autenticación
 
@@ -376,8 +417,7 @@ Las rutas de autenticación están destinadas a usuarios no autenticados. Si un 
 | Ruta | Página | Estado |
 |---|---|---|
 | `/inicio` | Inicio privado | Implementada |
-| `/buscar` | Búsqueda | Estructura provisional |
-| `/categorias` | Categorías | Estructura provisional |
+| `/categorias` | Categorías | Redirige a la sección pública |
 | `/mas` | Más opciones | Implementada |
 | `/perfil` | Perfil | Estructura provisional |
 | `/ayuda` | Ayuda | Estructura provisional |
@@ -390,15 +430,31 @@ Las rutas privadas están protegidas mediante un componente de control de acceso
 Para gestionar la navegación según el estado de autenticación se utilizan dos componentes:
 
 - **RequireAuth:** protege las rutas privadas, comprueba que exista una sesión válida y verifica que el usuario tenga un rol autorizado.
-- **GuestRoute:** controla el acceso a páginas destinadas exclusivamente a visitantes o usuarios no autenticados.
+- **GuestRoute:** controla el acceso a páginas destinadas exclusivamente a visitantes o usuarios no autenticados, permitiendo también el acceso público a las secciones informativas.
 
 Los roles utilizados en el backend son `PATIENT` y `CAREGIVER`, correspondientes a paciente y cuidador.
+
+### Consulta y filtrado de contenidos
+
+La página de categorías centraliza la consulta de artículos y permite combinar diferentes criterios de búsqueda.
+
+Entre sus características se encuentran:
+
+- Obtención de las categorías disponibles desde el backend.
+- Consulta de los artículos y presentación de sus datos.
+- Búsqueda mediante texto.
+- Selección de múltiples categorías.
+- Actualización de los resultados según los filtros aplicados.
+- Eliminación individual de filtros activos.
+- Limpieza de todos los filtros.
+- Conservación de los criterios de búsqueda en los parámetros de la URL.
+- Paginación adaptada al tamaño de pantalla.
 
 ---
 
 ## 7. Autenticación y gestión de usuarios
 
-Una de las principales incorporaciones de esta entrega es el sistema de autenticación, que permite registrar usuarios, iniciar sesión y acceder a las funcionalidades privadas de la aplicación.
+El sistema de autenticación incorporado en la segunda entrega se mantiene como base para el acceso a las funcionalidades privadas de la aplicación.
 
 ### Registro de usuarios
 
@@ -453,51 +509,226 @@ La seguridad del backend se apoya en Spring Security, JWT y BCrypt. Las contrase
 
 ## 8. Prototipado
 
-Durante esta segunda entrega se ha ampliado la propuesta inicial de interfaz, incorporando nuevas pantallas y elementos de navegación para las áreas pública y privada.
+Durante esta tercera entrega se ha ampliado la interfaz inicial, incorporando la consulta funcional de contenidos, los filtros y diferentes mejoras en la presentación de la información.
 
 El prototipado permite comprobar la distribución de los elementos, la jerarquía visual y la facilidad de navegación antes de incorporar funcionalidades más complejas.
 
 ### Página de bienvenida
 
-En este apartado se incluirán capturas de la pantalla de bienvenida y sus opciones de acceso.
+Capturas de la pantalla de bienvenida y sus opciones de acceso.
 
-![Página de bienvenida de AlzheCare](./screenshots/bienvenida.png)
+<table>
+  <tr>
+    <td align="center">
+      <img src="screenshots/bienvenida.png" width="300">
+      <br>
+      <b>Slide de bienvenida 1</b>
+    </td>
+    <td align="center">
+      <img src="screenshots/bienvenida2.png" width="300">
+      <br>
+      <b>Slide de bienvenida 2</b>
+    </td>
+    <td align="center">
+      <img src="screenshots/bienvenida3.png" width="300">
+      <br>
+      <b>Slide de bienvenida 3</b>
+    </td>
+  </tr>
+</table>
+
+### Opciones de acceso
+
+Se muestran las principales formas de acceder al contenido.
+
+<!-- Mantener la captura original de las opciones de entrada. -->
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="screenshots/opciones-entrada.png" width="300">
+      <br>
+      <b>Opciones de entrada a la aplicación (Invitado, Login o Registro)</b>
+    </td>
+  </tr>
+</table>
 
 ### Inicio público
 
-Se mostrarán las principales secciones informativas disponibles para los visitantes.
+Se muestran las principales secciones informativas disponibles para los visitantes.
 
-![Inicio público de AlzheCare](./screenshots/inicio-publico.png)
+<!-- Mantener la captura original del inicio público. -->
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="screenshots/inicio-publico.png" width="300">
+      <br>
+      <b>Inicio público como invitado</b>
+    </td>
+  </tr>
+</table>
+
+### Consulta de categorías y búsqueda
+
+En esta sección se muestran las nuevas funcionalidades de consulta de artículos, búsqueda textual y filtrado por categorías.
+
+<!-- Añadir una captura de la página de categorías mostrando el buscador y el listado de artículos. -->
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="screenshots/categorias-busqueda.png" width="300">
+      <br>
+      <b>Consulta de artículos y búsqueda por texto</b>
+    </td>
+  </tr>
+</table>
+
+<!-- Añadir una captura donde se aprecien varias categorías seleccionadas y los filtros activos. -->
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="screenshots/filtros-activos.png" width="300">
+      <br>
+      <b>Selección de categorías y gestión de filtros activos</b>
+    </td>
+  </tr>
+</table>
+
+<!-- Añadir una captura donde se vea el número de resultados y la paginación o carga progresiva. -->
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="screenshots/resultados-paginacion.png" width="300">
+      <br>
+      <b>Resultados de búsqueda y paginación</b>
+    </td>
+  </tr>
+</table>
 
 ### Registro e inicio de sesión
 
-Capturas de los formularios de autenticación y del proceso de selección del tipo de usuario.
+Se mantienen las capturas de los formularios de autenticación y del proceso de selección del tipo de usuario.
 
-![Inicio de sesión de AlzheCare](./screenshots/login.png)
+<!-- Mantener las capturas originales de login y registro. -->
 
-![Registro de usuario de AlzheCare](./screenshots/registro.png)
+<table>
+  <tr>
+    <td align="center">
+      <img src="screenshots/login.png" width="300">
+      <br>
+      <b>Inicio de sesión de AlzheCare</b>
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="screenshots/registro-roles.png" width="300">
+      <br>
+      <b>Elección de roles</b>
+    </td>
+    <td align="center">
+      <img src="screenshots/registro.png" width="300">
+      <br>
+      <b>Registro de usuario de AlzheCare</b>
+    </td>
+  </tr>
+</table>
 
 ### Inicio privado
 
-Se incluirá una captura de la página principal a la que acceden los usuarios autenticados.
+Se muestra la página principal a la que acceden los usuarios autenticados.
 
-![Inicio privado de AlzheCare](./screenshots/inicio-privado.png)
+<!-- Mantener la captura original del inicio privado. -->
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="screenshots/inicio-privado.png" width="300">
+      <br>
+      <b>Inicio privado de AlzheCare</b>
+    </td>
+  </tr>
+</table>
 
 ### Navegación y modo oscuro
 
-Capturas de los menús de navegación y de la apariencia de la aplicación al utilizar el tema oscuro.
+Se mantienen las capturas de los menús de navegación y de la apariencia de la aplicación al utilizar el tema oscuro.
 
-![Navegación privada de AlzheCare](./screenshots/navegacion-privada.png)
+<!-- Mantener las capturas originales del modo oscuro. -->
 
-![Modo oscuro de AlzheCare](./screenshots/modo-oscuro.png)
+<table>
+  <tr>
+    <td align="center">
+      <img src="screenshots/inicio-privado-dark.png" width="300">
+      <br>
+      <b>Inicio privado de AlzheCare en dark mode</b>
+    </td>
+    <td align="center">
+      <img src="screenshots/inicio-publico-dark.png" width="300">
+      <br>
+      <b>Inicio público de AlzheCare en dark mode</b>
+    </td>
+  </tr>
+</table>
 
-*Las imágenes anteriores representan las ubicaciones previstas para las capturas. Se deben añadir los archivos correspondientes a la carpeta `screenshots` del repositorio.*
+<table>
+  <tr>
+    <td align="center">
+      <img src="screenshots/mas-opciones-dark.png" width="300">
+      <br>
+      <b>Apartado de más opciones en dark mode</b>
+    </td>
+    <td align="center">
+      <img src="screenshots/cierre-sesion-dark.png" width="300">
+      <br>
+      <b>Cierre de sesión de AlzheCare en dark mode</b>
+    </td>
+  </tr>
+</table>
+
+### Notificaciones y estados de consulta
+
+Se muestran ejemplos del sistema global de notificaciones y de los mensajes que aparecen durante la consulta de contenidos.
+
+<!-- Añadir una captura de una notificación de confirmación o error y, si es posible, otra de un estado sin resultados o de carga. -->
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="screenshots/notificaciones-estados.png" width="300">
+      <br>
+      <b>Notificaciones y estados de consulta</b>
+    </td>
+  </tr>
+</table>
+
+### Adaptación a diferentes dispositivos
+
+Se muestra la adaptación de la página de categorías y sus resultados a diferentes tamaños de pantalla.
+
+<!-- Añadir una captura de la vista móvil de categorías y búsqueda. -->
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="screenshots/responsive-categorias.png" width="300">
+      <br>
+      <b>Vista responsive de categorías y resultados</b>
+    </td>
+  </tr>
+</table>
 
 ---
 
 ## 9. Ejecutando las pruebas
 
-En esta entrega, las comprobaciones se centran en verificar el funcionamiento del frontend, la comunicación con el backend, el sistema de autenticación y la protección de las rutas.
+En esta entrega, las comprobaciones se centran en verificar el funcionamiento del frontend, la comunicación con el backend, el sistema de autenticación y las nuevas funcionalidades de consulta y filtrado.
 
 ### Comprobaciones del frontend
 
@@ -510,11 +741,21 @@ Se deben verificar los siguientes aspectos:
 - Los estilos y recursos visuales se cargan correctamente.
 - El cambio entre el tema claro y oscuro funciona.
 - La interfaz mantiene una distribución adecuada en diferentes tamaños de pantalla.
+- El buscador permite localizar artículos mediante texto.
+- Los filtros permiten seleccionar varias categorías simultáneamente.
+- Los filtros activos se muestran correctamente.
+- Es posible eliminar filtros de forma individual.
+- La opción de limpiar filtros restablece la consulta.
+- Los resultados se actualizan según los criterios seleccionados.
+- La paginación o carga progresiva permite consultar los resultados disponibles.
+- Se muestra correctamente el número de resultados.
+- Los estados de carga, error y ausencia de resultados ofrecen información comprensible.
+- Las notificaciones aparecen cuando se producen las acciones correspondientes.
 - No aparecen errores relevantes en la consola del navegador.
 
 ### Comprobaciones del backend
 
-Se han realizado comprobaciones de compilación y funcionamiento de los servicios de autenticación.
+Se han realizado comprobaciones de compilación y funcionamiento de los servicios del backend.
 
 Entre los aspectos verificados se encuentran:
 
@@ -527,6 +768,7 @@ Entre los aspectos verificados se encuentran:
 - Consulta de los datos del usuario autenticado.
 - Identificación de los roles de paciente y cuidador.
 - Protección de los recursos que requieren autenticación.
+- Disponibilidad de los endpoints necesarios para consultar categorías y artículos.
 
 La compilación del backend se ha comprobado mediante:
 
@@ -534,9 +776,30 @@ La compilación del backend se ha comprobado mediante:
 .\mvnw.cmd clean compile
 ```
 
+### Pruebas de búsqueda y filtrado
+
+Se deben comprobar especialmente los siguientes comportamientos:
+
+1. Acceder a la sección pública de categorías.
+2. Comprobar que se cargan las categorías disponibles.
+3. Verificar que se muestran los artículos obtenidos desde el backend.
+4. Introducir un término en el buscador.
+5. Comprobar que los resultados corresponden con el texto introducido.
+6. Seleccionar una categoría.
+7. Seleccionar una segunda categoría y comprobar que se pueden combinar los filtros.
+8. Eliminar uno de los filtros activos.
+9. Comprobar que el resto de filtros se mantienen.
+10. Limpiar todos los filtros.
+11. Verificar que se recupera el listado sin restricciones.
+12. Comprobar el número de resultados mostrado.
+13. Navegar por las diferentes páginas o bloques de resultados.
+14. Introducir una búsqueda que no devuelva resultados.
+15. Comprobar que se muestra el mensaje correspondiente.
+16. Verificar el comportamiento cuando se produce un error de conexión con el backend.
+
 ### Pruebas de autenticación y navegación
 
-Se comprobarán especialmente los siguientes comportamientos:
+Se mantienen las comprobaciones de la entrega anterior:
 
 1. Acceder a la aplicación sin iniciar sesión.
 2. Entrar en el área pública.
@@ -547,7 +810,7 @@ Se comprobarán especialmente los siguientes comportamientos:
 7. Comprobar que se accede al área privada.
 8. Verificar que se muestra correctamente el nombre y el rol del usuario.
 9. Intentar acceder a una ruta privada sin autenticación.
-10. Comprobar que el usuario es redirigido al iniciar sesión si intenta acceder a una ruta exclusiva para visitantes.
+10. Comprobar que el usuario es redirigido si intenta acceder a una ruta exclusiva para visitantes.
 11. Cerrar sesión y comprobar que se pierde el acceso a las rutas privadas.
 
 ### Ejecución de pruebas de construcción
@@ -572,40 +835,39 @@ npm run preview
 
 ## 10. Estado del proyecto y próximas entregas
 
-Esta segunda entrega amplía la base inicial de AlzheCare mediante la incorporación de la autenticación, la gestión de usuarios y la estructura de las áreas pública y privada.
+Esta tercera entrega amplía la base de AlzheCare mediante la implementación de la consulta funcional de artículos, la búsqueda textual, los filtros múltiples y diferentes mejoras en la interfaz.
 
 ### Completado en esta entrega
 
-- Desarrollo de la página de bienvenida.
-- Desarrollo del inicio público.
-- Estructura inicial de las secciones informativas.
-- Configuración de la navegación pública y privada.
-- Implementación del registro de usuarios.
-- Selección del tipo de usuario.
-- Implementación del inicio de sesión.
-- Integración del frontend con el backend.
-- Desarrollo de la API REST con Spring Boot.
-- Conexión con MariaDB.
-- Autenticación mediante JWT.
-- Protección de contraseñas mediante BCrypt.
-- Gestión de roles de paciente y cuidador.
-- Protección de rutas privadas.
-- Restauración de sesión.
-- Desarrollo del inicio privado.
-- Implementación del apartado Más y del cierre de sesión.
-- Incorporación del modo claro y oscuro.
-- Adaptación del logotipo a los diferentes temas.
+- Mantenimiento de la página de bienvenida.
+- Mantenimiento del inicio público.
+- Implementación funcional de la consulta de categorías.
+- Integración de la consulta de artículos con el backend.
+- Incorporación del buscador textual.
+- Implementación de filtros por categorías.
+- Selección simultánea de varias categorías.
+- Visualización de filtros activos.
+- Eliminación individual de filtros.
+- Opción para limpiar todos los filtros.
+- Actualización de resultados según los criterios de búsqueda.
+- Paginación adaptativa y carga progresiva de resultados.
+- Contador de resultados.
+- Gestión visual de estados de carga, error y ausencia de resultados.
+- Incorporación del sistema global de notificaciones.
+- Mejoras de accesibilidad en los componentes.
+- Mejoras de adaptación responsive.
+- Optimización de la tipografía mediante Montserrat local en formato WOFF2.
+- Mejoras en la carga de componentes y páginas.
+- Mantenimiento del sistema de autenticación y gestión de usuarios.
+- Mantenimiento de la navegación pública y privada.
+- Mantenimiento del modo claro y oscuro.
 
 ### Próximos objetivos
 
 Las siguientes entregas ampliarán progresivamente las funcionalidades de la aplicación:
 
-- Desarrollo de un sistema global de notificaciones para informar sobre errores, confirmaciones, avisos y problemas de conexión.
-- Mejora de la gestión de errores y de la restauración de sesiones.
-- Implementación funcional de las categorías y los filtros.
-- Desarrollo del buscador y de la página de resultados.
-- Incorporación de artículos informativos y noticias dinámicas.
 - Desarrollo de las páginas de detalle de artículos.
+- Incorporación de nuevas funcionalidades de gestión de contenidos.
 - Implementación del perfil de usuario.
 - Desarrollo de las secciones de ayuda y contacto.
 - Diferenciación de la página de inicio y de las herramientas según el rol del usuario.
@@ -613,6 +875,7 @@ Las siguientes entregas ampliarán progresivamente las funcionalidades de la apl
 - Desarrollo de herramientas de apoyo, recordatorios y seguimiento.
 - Adaptación de la aplicación móvil mediante Capacitor.
 - Mejora del almacenamiento de credenciales y de la gestión de sesiones en dispositivos móviles.
+- Ampliación de las pruebas automatizadas de frontend y backend.
 
 Las secciones que actualmente muestran contenido provisional se completarán progresivamente en las siguientes fases.
 
@@ -624,6 +887,6 @@ El proyecto AlzheCare se desarrolla de forma personal de cara a un proyecto estu
 
 ---
 
-**AlzheCare – Segunda entrega: Autenticación y Áreas de Usuario**
+**AlzheCare – Tercera entrega: Búsqueda, Filtrado y Mejora de la Interfaz**
 
 *Construyendo una aplicación accesible para acompañar, informar y ayudar a personas con Alzheimer, sus familiares y cuidadores.*

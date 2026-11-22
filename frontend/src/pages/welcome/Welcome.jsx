@@ -1,6 +1,7 @@
 
 import { useWelcome } from "../../contexts/WelcomeContext";
 import WelcomeHeader from "../../components/layout/WelcomeHeader";
+import LogoMode from "../../components/common/LogoMode";
 import "./Welcome.css";
 
 const slides = [
@@ -148,7 +149,7 @@ export default function Welcome({ onNavigate }) {
                 ) : (
                     <div className="access-screen">
                         <div className="access-icon">
-                            <img src="src/assets/AlzheCare.png" height={70} width={70} />
+                            <LogoMode w="65" h="65" />
                         </div>
 
                         <span className="welcome-eyebrow">EMPIEZA CUANDO QUIERAS</span>

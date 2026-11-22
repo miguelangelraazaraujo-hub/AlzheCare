@@ -8,18 +8,6 @@
     color: var(--text);
 }
 
-.welcome-card {
-    width: min(100%, 760px);
-    min-height: 780px;
-    display: flex;
-    flex-direction: column;
-    padding: 32px 54px 24px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 28px;
-    box-shadow: 0 24px 80px rgba(35, 49, 103, 0.09);
-}
-
 .auth-card {
     width: min(100%, 760px);
     min-height: 780px;
@@ -165,6 +153,13 @@
     opacity: 0.6;
 }
 
+.auth-submit:focus-visible,
+.auth-alternative a:focus-visible,
+.auth-back:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+}
+
 .auth-alternative {
     margin: 25px 0 0;
     color: var(--muted);
@@ -239,7 +234,6 @@
 }
 
 .role-content strong {
-    /* font-size: 12px; */
     font-weight: 800;
 }
 
