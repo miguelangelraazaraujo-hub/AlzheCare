@@ -39,12 +39,8 @@
     --visual-personal: #eaf8f6;
     --icon: var(--search);
     --hover-back: #f5f6ff;
-<<<<<<< HEAD
-    --roles-muted: var(--search)
-=======
     --roles-muted: var(--search);
     --article-color: #009f91;
->>>>>>> TerceraEntrega
 }
 
 [data-theme="dark"] {
@@ -70,10 +66,7 @@
     --icon: #b9b3ce;
     --hover-back: #2a3a61;
     --roles-muted: var(--muted);
-<<<<<<< HEAD
-=======
     --article-color: #00ffea;
->>>>>>> TerceraEntrega
 }
 
 * {
