@@ -1,34 +1,36 @@
-
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import Logo from "../../components/common/Logo";
 import { useAuth } from "../../contexts/AuthContext";
+import { useNotification } from "../../contexts/NotificationContext";
 import "./Auth.css";
 
 export default function Login() {
     const { login } = useAuth();
     const navigate = useNavigate();
+    const { notify } = useNotification();
 
     const [correoElectronico, setCorreoElectronico] = useState("");
     const [contrasena, setContrasena] = useState("");
-    const [error, setError] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     async function handleSubmit(event) {
         event.preventDefault();
 
-        setError("");
+        if (isSubmitting) return;
+
         setIsSubmitting(true);
 
         try {
             await login({
-                correoElectronico,
+                correoElectronico: correoElectronico.trim().toLowerCase(),
                 contrasena,
             });
 
+            notify("Sesión iniciada correctamente.", "success");
             navigate("/inicio", { replace: true });
         } catch (err) {
-            setError(err.message || "No se pudo iniciar sesión.");
+            notify(err.message || "No se pudo iniciar sesión.", "error");
         } finally {
             setIsSubmitting(false);
         }
@@ -54,14 +56,18 @@ export default function Login() {
                         </label>
                         <input
                             id="correoElectronico"
+                            name="correoElectronico"
                             type="email"
                             autoComplete="email"
+                            autoCapitalize="none"
+                            spellCheck="false"
                             value={correoElectronico}
                             onChange={(event) =>
                                 setCorreoElectronico(event.target.value)
                             }
                             placeholder="nombre@ejemplo.com"
                             required
+                            disabled={isSubmitting}
                         />
                     </div>
 
@@ -69,6 +75,7 @@ export default function Login() {
                         <label htmlFor="contrasena">Contraseña</label>
                         <input
                             id="contrasena"
+                            name="contrasena"
                             type="password"
                             autoComplete="current-password"
                             value={contrasena}
@@ -77,14 +84,9 @@ export default function Login() {
                             }
                             placeholder="Introduce tu contraseña"
                             required
+                            disabled={isSubmitting}
                         />
                     </div>
-
-                    {error && (
-                        <p className="auth-error" role="alert">
-                            {error}
-                        </p>
-                    )}
 
                     <button
                         className="auth-submit"
@@ -103,6 +105,7 @@ export default function Login() {
                 <Link to="/publico" className="auth-back">
                     Continuar sin cuenta
                 </Link>
+
                 <Link to="/bienvenida" className="auth-back">
                     Volver
                 </Link>

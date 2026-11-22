@@ -1,4 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap");
+@font-face {
+    font-family: "Montserrat";
+    src: url("/fonts/montserrat-variable.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+}
 
 :root {
     font-family: "Montserrat", sans-serif;
@@ -22,7 +28,7 @@
     --search: #fff;
     --card: var(--search);
     --menu: rgba(255, 255, 255, 0.97);
-    --article: #e7eaf3;
+    --article: #e7f8f5;
     --help: #eef0ff;
     --gradient1: #e9ebff;
     --gradient2: #e3f7f4;
@@ -33,7 +39,12 @@
     --visual-personal: #eaf8f6;
     --icon: var(--search);
     --hover-back: #f5f6ff;
+<<<<<<< HEAD
     --roles-muted: var(--search)
+=======
+    --roles-muted: var(--search);
+    --article-color: #009f91;
+>>>>>>> TerceraEntrega
 }
 
 [data-theme="dark"] {
@@ -47,7 +58,7 @@
     --card: #19233b;
     --border: #4b4b4e;
     --menu: #19233b;
-    --article: #545557;
+    --article: #316559;
     --help: #030303;
     --gradient1: #2a2b2f;
     --gradient2: #383d3d;
@@ -59,6 +70,10 @@
     --icon: #b9b3ce;
     --hover-back: #2a3a61;
     --roles-muted: var(--muted);
+<<<<<<< HEAD
+=======
+    --article-color: #00ffea;
+>>>>>>> TerceraEntrega
 }
 
 * {
@@ -76,6 +91,17 @@ body {
     min-height: 100vh;
 }
 
+.page-loader {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--background);
+    padding: 24px;
+    color: var(--text);
+    font-size: 14px;
+}
+
 button {
     font: inherit;
     cursor: pointer;
@@ -91,4 +117,11 @@ button:focus-visible {
     background: var(--switch);
     border: var(--border);
     font-size: larger;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.switch-mode:focus-visible {
+    outline: 3px solid var(--turquoise);
+    outline-offset: 3px;
 }

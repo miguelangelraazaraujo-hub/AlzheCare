@@ -1,33 +1,50 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import "./PublicSearchBar.css";
 
-
-export default function PublicSearchBar() {
-    const [query, setQuery] = useState("");
+export default function PublicSearchBar({ value = "", onSearch }) {
+    const [query, setQuery] = useState(value);
     const navigate = useNavigate();
-    
-    const handleSearch = (event) => {
+
+    const handleSubmit = (event) => {
         event.preventDefault();
-    
+
         const search = query.trim();
+
+        if (onSearch) {
+            onSearch(search);
+            return;
+        }
+
         navigate(
-          search
-            ? `/publico/resultados?q=${encodeURIComponent(search)}`
-            : "/publico/busqueda"
+            search
+                ? `/publico/categorias?q=${encodeURIComponent(search)}`
+                : "/publico/busqueda"
         );
     };
 
     return (
-        <form className="public-search" onSubmit={handleSearch}>
+        <form
+            className="public-search"
+            onSubmit={handleSubmit}
+            role="search"
+            aria-label="Buscar artículos"
+        >
             <span className="search-icon" aria-hidden="true">⌕</span>
+
+            <label className="visually-hidden" htmlFor="public-search-input">
+                Buscar información
+            </label>
+
             <input
-              type="search"
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="¿Qué información necesitas?"
-              aria-label="Buscar información"
+                type="search"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="¿Qué información necesitas?"
+                aria-label="Buscar información"
             />
+
             <button type="submit">Buscar</button>
-          </form>
+        </form>
     );
 }

@@ -1,7 +1,6 @@
 import {
     House,
-    Search,
-    LayoutGrid,
+    BookOpen,
     Menu,
 } from "lucide-react";
 
@@ -9,8 +8,7 @@ import BottomNavigation from "./BottomNavigation";
 
 const items = [
     { label: "Inicio", path: "/inicio", icon: House, end: true },
-    { label: "Buscar", path: "/buscar", icon: Search },
-    { label: "Categorías", path: "/categorias", icon: LayoutGrid },
+    { label: "Artículos", path: "/publico/categorias", icon: BookOpen },
     { label: "Más", path: "/mas", icon: Menu },
 ];
 

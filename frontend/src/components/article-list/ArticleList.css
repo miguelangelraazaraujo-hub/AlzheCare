@@ -1,0 +1,179 @@
+.articles-list {
+    display: grid;
+    gap: 16px;
+}
+
+.article-item {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 20px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--card);
+    color: inherit;
+    text-decoration: none;
+    transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.article-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(35, 49, 103, 0.07);
+}
+
+.article-item:focus-visible {
+    outline: 3px solid var(--focus-color, var(--primary));
+    outline-offset: 4px;
+}
+
+/* Espacio reservado para la futura imagen del artículo. */
+.article-image {
+    width: 100%;
+    height: 160px;
+    overflow: hidden;
+    background: var(--article);
+}
+
+.article-visual {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    background: var(--article);
+    color: var(--article-color);
+    font-size: 65px;
+    font-weight: 400;
+}
+
+/* Cuando incorporemos imágenes reales, utilizaremos:
+.article-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+*/
+
+.article-content {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 16px 0;
+}
+
+.article-title {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    font-weight: 700;
+}
+
+.article-date {
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.article-arrow {
+    padding: 16px;
+    color: var(--primary);
+}
+
+.articles-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 28px;
+}
+
+.articles-pagination button {
+    min-width: 40px;
+    min-height: 40px;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--card);
+    color: var(--text);
+    font: inherit;
+    cursor: pointer;
+    transition: background-color 160ms ease, border-color 160ms ease;
+}
+
+.articles-pagination button:hover:not(:disabled) {
+    border-color: var(--primary);
+}
+
+.articles-pagination button.active {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: white;
+}
+
+.articles-pagination button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.articles-pagination button:focus-visible {
+    outline: 3px solid var(--primary);
+    outline-offset: 3px;
+}
+
+.mobile-pagination {
+    flex-direction: column;
+    gap: 10px;
+}
+
+.mobile-pagination button {
+    width: 100%;
+    max-width: 280px;
+    border-color: var(--primary);
+    background: var(--primary);
+    color: white;
+}
+
+.mobile-pagination span {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+@media (max-width: 700px) {
+    .article-item {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0;
+    }
+
+    .article-image {
+        height: auto;
+        aspect-ratio: 16 / 9;
+    }
+
+    .article-content {
+        padding: 16px;
+    }
+
+    .article-arrow {
+        display: none;
+    }
+
+    .articles-pagination {
+        margin-top: 24px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .article-item {
+        transition: none;
+    }
+
+    .article-item:hover {
+        transform: none;
+    }
+
+    .articles-pagination button {
+        transition: none;
+    }
+}
