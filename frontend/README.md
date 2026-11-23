@@ -541,8 +541,6 @@ Capturas de la pantalla de bienvenida y sus opciones de acceso.
 
 Se muestran las principales formas de acceder al contenido.
 
-<!-- Mantener la captura original de las opciones de entrada. -->
-
 <table align="center">
   <tr>
     <td align="center">
@@ -556,8 +554,6 @@ Se muestran las principales formas de acceder al contenido.
 ### Inicio público
 
 Se muestran las principales secciones informativas disponibles para los visitantes.
-
-<!-- Mantener la captura original del inicio público. -->
 
 <table align="center">
   <tr>
@@ -573,8 +569,6 @@ Se muestran las principales secciones informativas disponibles para los visitant
 
 En esta sección se muestran las nuevas funcionalidades de consulta de artículos, búsqueda textual y filtrado por categorías.
 
-<!-- Añadir una captura de la página de categorías mostrando el buscador y el listado de artículos. -->
-
 <table align="center">
   <tr>
     <td align="center">
@@ -585,8 +579,6 @@ En esta sección se muestran las nuevas funcionalidades de consulta de artículo
   </tr>
 </table>
 
-<!-- Añadir una captura donde se aprecien varias categorías seleccionadas y los filtros activos. -->
-
 <table align="center">
   <tr>
     <td align="center">
@@ -596,8 +588,6 @@ En esta sección se muestran las nuevas funcionalidades de consulta de artículo
     </td>
   </tr>
 </table>
-
-<!-- Añadir una captura donde se vea el número de resultados y la paginación o carga progresiva. -->
 
 <table align="center">
   <tr>
@@ -612,8 +602,6 @@ En esta sección se muestran las nuevas funcionalidades de consulta de artículo
 ### Registro e inicio de sesión
 
 Se mantienen las capturas de los formularios de autenticación y del proceso de selección del tipo de usuario.
-
-<!-- Mantener las capturas originales de login y registro. -->
 
 <table>
   <tr>
@@ -644,8 +632,6 @@ Se mantienen las capturas de los formularios de autenticación y del proceso de 
 
 Se muestra la página principal a la que acceden los usuarios autenticados.
 
-<!-- Mantener la captura original del inicio privado. -->
-
 <table align="center">
   <tr>
     <td align="center">
@@ -659,8 +645,6 @@ Se muestra la página principal a la que acceden los usuarios autenticados.
 ### Navegación y modo oscuro
 
 Se mantienen las capturas de los menús de navegación y de la apariencia de la aplicación al utilizar el tema oscuro.
-
-<!-- Mantener las capturas originales del modo oscuro. -->
 
 <table>
   <tr>
@@ -696,8 +680,6 @@ Se mantienen las capturas de los menús de navegación y de la apariencia de la 
 
 Se muestran ejemplos del sistema global de notificaciones y de los mensajes que aparecen durante la consulta de contenidos.
 
-<!-- Añadir una captura de una notificación de confirmación o error y, si es posible, otra de un estado sin resultados o de carga. -->
-
 <table align="center">
   <tr>
     <td align="center">
@@ -711,8 +693,6 @@ Se muestran ejemplos del sistema global de notificaciones y de los mensajes que 
 ### Adaptación a diferentes dispositivos
 
 Se muestra la adaptación de la página de categorías y sus resultados a diferentes tamaños de pantalla.
-
-<!-- Añadir una captura de la vista móvil de categorías y búsqueda. -->
 
 <table align="center">
   <tr>

@@ -117,9 +117,18 @@ export default function PublicHome() {
                     </div>
 
                     {articlesLoading && (
-                        <p role="status">
-                            Cargando artículo destacado...
-                        </p>
+                        <div className="featured-article featured-skeleton" aria-hidden="true">
+                            <div className="featured-visual skeleton-block"></div>
+
+                            <div className="featured-content">
+                                <div className="skeleton-line skeleton-category"></div>
+                                <div className="skeleton-line skeleton-title"></div>
+                                <div className="skeleton-line skeleton-title short"></div>
+                                <div className="skeleton-line skeleton-text"></div>
+                                <div className="skeleton-line skeleton-text short"></div>
+                                <div className="skeleton-line skeleton-button"></div>
+                            </div>
+                        </div>
                     )}
 
                     {!articlesLoading && articlesError && (
