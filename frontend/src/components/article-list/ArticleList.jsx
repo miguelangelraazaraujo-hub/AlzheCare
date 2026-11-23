@@ -108,7 +108,24 @@ function ArticleListContent({
                 </div>
             )}
 
-            {loading && <p role="status">Cargando artículos...</p>}
+            {loading && (
+                <div className="articles-list article-skeleton-list" aria-hidden="true">
+                    {Array.from({ length: limit ?? 3 }).map((_, index) => (
+                        <div className="article-item article-skeleton" key={index}>
+                            <div className="article-image skeleton-block"></div>
+
+                            <div className="article-content">
+                                <div className="skeleton-line skeleton-category"></div>
+                                <div className="skeleton-line skeleton-title"></div>
+                                <div className="skeleton-line skeleton-text"></div>
+                                <div className="skeleton-line skeleton-text short"></div>
+                            </div>
+
+                            <div className="article-arrow"></div>
+                        </div>
+                    ))}
+                </div>
+            )}
 
             {!loading && error && (
                 <p role="alert" className="error-message">{error}</p>

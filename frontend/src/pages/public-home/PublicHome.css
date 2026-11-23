@@ -15,14 +15,6 @@
     text-align: center;
 }
 
-.public-eyebrow,
-.section-eyebrow {
-    color: var(--primary);
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 1.5px;
-}
-
 .public-hero h1 {
     margin: 13px 0;
     font-size: clamp(27px, 4vw, 38px);
@@ -177,13 +169,6 @@
     padding: 28px 32px;
 }
 
-.article-category {
-    color: #4658d9;
-    font-size: 9px;
-    font-weight: 800;
-    letter-spacing: 1px;
-}
-
 .featured-content h3 {
     margin: 11px 0;
     font-size: 21px;
@@ -236,6 +221,121 @@
     color: #69738a;
     font-size: 11px;
     line-height: 1.7;
+}
+
+.skeleton-block,
+.skeleton-line {
+    background: linear-gradient(90deg,
+            var(--border) 25%,
+            var(--card) 50%,
+            var(--border) 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s ease-in-out infinite;
+}
+
+.skeleton-line {
+    height: 12px;
+    border-radius: 6px;
+}
+
+.skeleton-category {
+    width: 35%;
+    height: 10px;
+}
+
+.skeleton-title {
+    width: 85%;
+    height: 16px;
+}
+
+.skeleton-title.short {
+    width: 60%;
+}
+
+.skeleton-text {
+    width: 95%;
+    height: 10px;
+}
+
+.skeleton-text.short {
+    width: 65%;
+}
+
+.skeleton-button {
+    width: 100px;
+    height: 12px;
+    border-radius: 6px;
+}
+
+.category-skeleton-grid {
+    pointer-events: none;
+}
+
+.category-skeleton {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.category-skeleton .skeleton-icon {
+    width: 43px;
+    height: 43px;
+    border-radius: 13px;
+}
+
+.category-skeleton .skeleton-title {
+    width: 75%;
+    height: 13px;
+}
+
+.category-skeleton .skeleton-text {
+    width: 100%;
+}
+
+.category-skeleton .skeleton-text.short {
+    width: 65%;
+}
+
+.featured-skeleton {
+    pointer-events: none;
+}
+
+.featured-skeleton .featured-visual {
+    background: var(--border);
+}
+
+.featured-skeleton .featured-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.featured-skeleton .skeleton-title {
+    width: 90%;
+}
+
+.featured-skeleton .skeleton-title.short {
+    width: 65%;
+}
+
+.featured-skeleton .skeleton-text {
+    width: 100%;
+}
+
+.featured-skeleton .skeleton-text.short {
+    width: 70%;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 100% 0;
+    }
+
+    100% {
+        background-position: -100% 0;
+    }
 }
 
 @media (max-width: 700px) {
@@ -299,5 +399,10 @@
     .category-card,
     .article-item {
         transition: none;
+    }
+
+    .skeleton-block,
+    .skeleton-line {
+        animation: none;
     }
 }
