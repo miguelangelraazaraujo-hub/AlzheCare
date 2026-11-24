@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -44,10 +45,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String authorizationHeader =
             request.getHeader(HttpHeaders.AUTHORIZATION);
 
-        if (authorizationHeader == null
-            || !authorizationHeader.startsWith("Bearer ")) {
-
+        if (authorizationHeader == null) {
             filterChain.doFilter(request, response);
+            return;
+        }
+
+        if (!authorizationHeader.startsWith("Bearer ")
+            || authorizationHeader.substring(7).isBlank()) {
+
+            sendUnauthorizedResponse(
+                response,
+                "La autenticación proporcionada no es válida."
+            );
             return;
         }
 
@@ -56,34 +65,59 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         try {
             String email = jwtService.extractEmail(token);
 
-            if (SecurityContextHolder.getContext().getAuthentication() == null) {
+            User user = userRepository.findByCorreoElectronico(email)
+                .orElse(null);
 
-                User user = userRepository.findByCorreoElectronico(email)
-                    .orElse(null);
-
-                if (user != null) {
-                    var authorities = List.of(
-                        new SimpleGrantedAuthority(
-                            "ROLE_" + user.getRol().name()
-                        )
-                    );
-
-                    var authentication =
-                        new UsernamePasswordAuthenticationToken(
-                            user,
-                            null,
-                            authorities
-                        );
-
-                    SecurityContextHolder.getContext()
-                        .setAuthentication(authentication);
-                }
+            if (user == null) {
+                sendUnauthorizedResponse(
+                    response,
+                    "La sesión no corresponde a un usuario válido."
+                );
+                return;
             }
+
+            var authorities = List.of(
+                new SimpleGrantedAuthority(
+                    "ROLE_" + user.getRol().name()
+                )
+            );
+
+            var authentication =
+                new UsernamePasswordAuthenticationToken(
+                    user,
+                    null,
+                    authorities
+                );
+
+            SecurityContextHolder.getContext()
+                .setAuthentication(authentication);
 
         } catch (JwtException | IllegalArgumentException exception) {
             SecurityContextHolder.clearContext();
+
+            sendUnauthorizedResponse(
+                response,
+                "El token de autenticación es inválido o ha caducado."
+            );
+            return;
         }
 
         filterChain.doFilter(request, response);
+    }
+
+    private void sendUnauthorizedResponse(
+        HttpServletResponse response,
+        String message
+    ) throws IOException {
+
+        SecurityContextHolder.clearContext();
+
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setCharacterEncoding("UTF-8");
+
+        response.getWriter().write(
+            "{\"message\":\"" + message + "\"}"
+        );
     }
 }
