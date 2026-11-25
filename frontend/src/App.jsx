@@ -4,6 +4,7 @@ import { Navigate, Route, Routes, useNavigate } from "react-router";
 import { WelcomeProvider } from "./contexts/WelcomeContext";
 import { NotificationProvider } from "./contexts/NotificationContext";
 import NotificationContainer from "./components/common/NotificationContainer";
+import SessionExpiredModal from "./components/common/SessionExpiredModal";
 
 // Páginas cargadas bajo demanda
 const PlaceholderPage = lazy(() => import("./components/common/PlaceholderPage"));
@@ -55,6 +56,7 @@ export default function App() {
     return (
         <NotificationProvider>
             <NotificationContainer />
+            <SessionExpiredModal />
 
             <Suspense fallback={<PageLoader />}>
                 <Routes>

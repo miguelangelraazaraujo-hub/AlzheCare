@@ -1,7 +1,19 @@
-
 const API_URL = (
     import.meta.env.VITE_API_URL || "http://localhost:8080"
 ).replace(/\/$/, "");
+
+const TOKEN_KEY = "alzhecare_token";
+
+let unauthorizedHandler = null;
+
+export function setUnauthorizedHandler(handler) {
+    unauthorizedHandler = handler;
+}
+
+function isAuthEndpoint(endpoint) {
+    return endpoint.includes("/api/auth/login")
+        || endpoint.includes("/api/auth/register");
+}
 
 function getErrorMessage(status, data, endpoint) {
     if (status === 401) {
@@ -47,15 +59,23 @@ function getErrorMessage(status, data, endpoint) {
 export async function request(endpoint, options = {}) {
     let response;
 
+    const storedToken = localStorage.getItem(TOKEN_KEY);
+
+    const headers = {
+        ...(options.body
+            ? { "Content-Type": "application/json" }
+            : {}),
+        ...options.headers,
+    };
+
+    if (storedToken && !isAuthEndpoint(endpoint)) {
+        headers.Authorization = `Bearer ${storedToken}`;
+    }
+
     try {
         response = await fetch(`${API_URL}${endpoint}`, {
             ...options,
-            headers: {
-                ...(options.body
-                    ? { "Content-Type": "application/json" }
-                    : {}),
-                ...options.headers,
-            },
+            headers,
         });
     } catch {
         throw new Error(
@@ -75,6 +95,13 @@ export async function request(endpoint, options = {}) {
     }
 
     if (!response.ok) {
+        if (
+            response.status === 401
+            && !isAuthEndpoint(endpoint)
+        ) {
+            unauthorizedHandler?.(data?.message);
+        }
+
         throw new Error(
             getErrorMessage(response.status, data, endpoint)
         );
