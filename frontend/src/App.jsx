@@ -4,6 +4,7 @@ import { Navigate, Route, Routes, useNavigate } from "react-router";
 import { WelcomeProvider } from "./contexts/WelcomeContext";
 import { NotificationProvider } from "./contexts/NotificationContext";
 import NotificationContainer from "./components/common/NotificationContainer";
+import SessionExpiredModal from "./components/common/SessionExpiredModal";
 
 // Páginas cargadas bajo demanda
 const PlaceholderPage = lazy(() => import("./components/common/PlaceholderPage"));
@@ -20,6 +21,7 @@ const RegisterRole = lazy(() => import("./pages/auth/RegisterRole"));
 const Register = lazy(() => import("./pages/auth/Register"));
 
 const PrivateHome = lazy(() => import("./pages/private-home/PrivateHome"));
+const Profile = lazy(() => import("./pages/profile/Profile"));
 const More = lazy(() => import("./pages/more/More"));
 
 function WelcomeRoute() {
@@ -55,6 +57,7 @@ export default function App() {
     return (
         <NotificationProvider>
             <NotificationContainer />
+            <SessionExpiredModal />
 
             <Suspense fallback={<PageLoader />}>
                 <Routes>
@@ -113,12 +116,12 @@ export default function App() {
                                 }
                             />
 
-                            <Route path="/mas" element={<More />} />
-
                             <Route
                                 path="/perfil"
-                                element={<PlaceholderPage title="Perfil" />}
+                                element={<Profile />}
                             />
+
+                            <Route path="/mas" element={<More />} />
 
                             <Route
                                 path="/ayuda"

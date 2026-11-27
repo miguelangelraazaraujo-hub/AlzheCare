@@ -1,4 +1,3 @@
-
 import {
     createContext,
     useContext,
@@ -6,18 +5,31 @@ import {
     useState,
 } from "react";
 
-import authService from "../services/authService";
+import authService, {
+    setUnauthorizedHandler,
+} from "../services/authService";
 
 const AuthContext = createContext(null);
 
 const TOKEN_KEY = "alzhecare_token";
+const SESSION_EXPIRED_KEY = "alzhecare_session_expired";
 
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
-    // Recuperar y validar la sesión al iniciar la aplicación.
+    const [sessionExpired, setSessionExpired] = useState(() => {
+        const expired = sessionStorage.getItem(SESSION_EXPIRED_KEY);
+
+        if (expired) {
+            sessionStorage.removeItem(SESSION_EXPIRED_KEY);
+            return true;
+        }
+
+        return false;
+    });
+
     useEffect(() => {
         let active = true;
 
@@ -44,6 +56,8 @@ export function AuthProvider({ children }) {
                 if (active) {
                     setToken(null);
                     setUser(null);
+
+                    setSessionExpired(true);
                 }
             } finally {
                 if (active) setIsLoading(false);
@@ -57,7 +71,22 @@ export function AuthProvider({ children }) {
         };
     }, []);
 
-    // Guardar los datos de una sesión autenticada.
+    useEffect(() => {
+        setUnauthorizedHandler(() => {
+            localStorage.removeItem(TOKEN_KEY);
+            setToken(null);
+            setUser(null);
+
+            sessionStorage.setItem(SESSION_EXPIRED_KEY, "true");
+
+            window.location.href = "/publico";
+        });
+
+        return () => {
+            setUnauthorizedHandler(null);
+        };
+    }, []);
+
     function saveSession(authResponse) {
         const { token: newToken, user: newUser } = authResponse;
 
@@ -65,30 +94,34 @@ export function AuthProvider({ children }) {
 
         setToken(newToken);
         setUser(newUser);
+        setSessionExpired(false);
     }
 
-    // Iniciar sesión.
+    function updateSession(authResponse) {
+        saveSession(authResponse);
+    }
+
     async function login(credentials) {
         const response = await authService.login(credentials);
         saveSession(response);
-
         return response.user;
     }
 
-    // Registrar una cuenta.
     async function register(userData) {
         const response = await authService.register(userData);
         saveSession(response);
-
         return response.user;
     }
 
-    // Cerrar sesión.
     function logout() {
         localStorage.removeItem(TOKEN_KEY);
-
         setToken(null);
         setUser(null);
+        setSessionExpired(false);
+    }
+
+    function dismissSessionExpired() {
+        setSessionExpired(false);
     }
 
     const value = {
@@ -96,9 +129,12 @@ export function AuthProvider({ children }) {
         token,
         isLoading,
         isAuthenticated: Boolean(user && token),
+        sessionExpired,
+        dismissSessionExpired,
         login,
         register,
         logout,
+        updateSession,
     };
 
     return (
