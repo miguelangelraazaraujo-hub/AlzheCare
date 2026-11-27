@@ -97,6 +97,10 @@ export function AuthProvider({ children }) {
         setSessionExpired(false);
     }
 
+    function updateSession(authResponse) {
+        saveSession(authResponse);
+    }
+
     async function login(credentials) {
         const response = await authService.login(credentials);
         saveSession(response);
@@ -130,6 +134,7 @@ export function AuthProvider({ children }) {
         login,
         register,
         logout,
+        updateSession,
     };
 
     return (

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import userService from "../../services/userService";
 import { useNotification } from "../../contexts/NotificationContext";
+import { useAuth } from "../../contexts/AuthContext";
 import "./Profile.css";
 
 const initialProfile = {
@@ -12,6 +13,7 @@ const initialProfile = {
 
 export default function Profile() {
     const { notify } = useNotification();
+    const { updateSession } = useAuth();
 
     const [profile, setProfile] = useState(initialProfile);
     const [originalProfile, setOriginalProfile] = useState(initialProfile);
@@ -89,10 +91,12 @@ export default function Profile() {
         try {
             const data = await userService.updateProfile(updatedProfile);
 
+            updateSession(data);
+
             const savedProfile = {
-                nombre: data.nombre,
-                apellidos: data.apellidos,
-                correoElectronico: data.correoElectronico,
+                nombre: data.user.nombre,
+                apellidos: data.user.apellidos,
+                correoElectronico: data.user.correoElectronico,
             };
 
             setProfile(savedProfile);

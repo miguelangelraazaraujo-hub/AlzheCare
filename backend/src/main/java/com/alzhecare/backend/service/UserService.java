@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alzhecare.backend.dto.request.ProfileUpdateRequest;
+import com.alzhecare.backend.dto.response.AuthResponse;
 import com.alzhecare.backend.dto.response.UserResponse;
 import com.alzhecare.backend.exception.DuplicateEmailException;
 import com.alzhecare.backend.model.User;
@@ -15,9 +16,14 @@ import com.alzhecare.backend.repository.UserRepository;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final JwtService jwtService;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(
+        UserRepository userRepository,
+        JwtService jwtService
+    ) {
         this.userRepository = userRepository;
+        this.jwtService = jwtService;
     }
 
     @Transactional(readOnly = true)
@@ -26,12 +32,14 @@ public class UserService {
     }
 
     @Transactional
-    public UserResponse updateProfile(User user, ProfileUpdateRequest request) {
-
+    public AuthResponse updateProfile(
+        User user,
+        ProfileUpdateRequest request
+    ) {
         String correo = normalizeEmail(request.correoElectronico());
 
         if (!correo.equals(normalizeEmail(user.getCorreoElectronico()))
-                && userRepository.existsByCorreoElectronico(correo)) {
+            && userRepository.existsByCorreoElectronico(correo)) {
             throw new DuplicateEmailException();
         }
 
@@ -41,7 +49,15 @@ public class UserService {
 
         User updatedUser = userRepository.save(user);
 
-        return UserResponse.fromEntity(updatedUser);
+        String newToken = jwtService.generateToken(
+            updatedUser.getCorreoElectronico()
+        );
+
+        return new AuthResponse(
+            newToken,
+            "Bearer",
+            UserResponse.fromEntity(updatedUser)
+        );
     }
 
     private String normalizeEmail(String correo) {

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alzhecare.backend.dto.request.ProfileUpdateRequest;
+import com.alzhecare.backend.dto.response.AuthResponse;
 import com.alzhecare.backend.dto.response.UserResponse;
 import com.alzhecare.backend.model.User;
 import com.alzhecare.backend.service.UserService;
@@ -32,7 +33,7 @@ public class UserController {
     }
 
     @PutMapping("/me")
-    public ResponseEntity<UserResponse> updateProfile(
+    public ResponseEntity<AuthResponse> updateProfile(
             @AuthenticationPrincipal User user,
             @Valid @RequestBody ProfileUpdateRequest request) {
         return ResponseEntity.ok(userService.updateProfile(user, request));
