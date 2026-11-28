@@ -220,6 +220,46 @@
     gap: 16px;
 }
 
+.change-password-cancel {
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 18px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.change-password-cancel:hover:not(:disabled) {
+    background: var(--hover-back);
+    border-color: var(--primary);
+}
+
+.change-password-cancel:focus-visible {
+    outline: 3px solid var(--turquoise);
+    outline-offset: 3px;
+}
+
+.change-password-cancel:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.change-password-modal .change-password-attempts {
+    margin: -12px 0 20px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: var(--article);
+    color: var(--text);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
 @keyframes change-password-modal-appear {
     from {
         opacity: 0;
@@ -240,7 +280,10 @@
 
     .change-password-container {
         padding: 25px 20px;
-        border-radius: 12px;
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
     }
 
     .change-password-header h1 {

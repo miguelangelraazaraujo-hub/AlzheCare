@@ -5,6 +5,7 @@ import { ArrowLeft, LockKeyhole, Eye, EyeOff } from "lucide-react";
 
 import userService from "../../services/userService";
 import { useNotification } from "../../contexts/NotificationContext";
+import { useAuth } from "../../contexts/AuthContext";
 
 import "./PasswdChange.css";
 
@@ -26,6 +27,13 @@ function PasswdChange() {
     const [loadingVerification, setLoadingVerification] = useState(false);
     const [loadingChange, setLoadingChange] = useState(false);
 
+    const MAX_INTENTOS = 3;
+
+    const [intentosFallidos, setIntentosFallidos] = useState(0);
+    const [bloqueandoVerificacion, setBloqueandoVerificacion] = useState(false);
+
+    const { logout } = useAuth();
+
     const handleVerifyPassword = async (event) => {
         event.preventDefault();
 
@@ -37,12 +45,50 @@ function PasswdChange() {
         try {
             setLoadingVerification(true);
 
-            await userService.verifyPassword(contrasenaActual);
+            const response = await userService.verifyPassword(
+                contrasenaActual
+            );
+
+            if (!response.verified) {
+                const nuevosIntentos = intentosFallidos + 1;
+
+                setIntentosFallidos(nuevosIntentos);
+                setContrasenaActual("");
+
+                if (nuevosIntentos >= MAX_INTENTOS) {
+                    setBloqueandoVerificacion(true);
+
+                    notify(
+                        "Por motivos de seguridad, se ha cerrado tu sesión tras superar el número máximo de intentos de verificación.",
+                        "warning"
+                    );
+
+                    setTimeout(() => {
+                        logout();
+                        navigate("/publico", { replace: true });
+                    }, 1500);
+
+                    return;
+                }
+
+                const restantes = MAX_INTENTOS - nuevosIntentos;
+
+                notify(
+                    `La contraseña actual es incorrecta. Te quedan ${restantes} ${restantes === 1 ? "intento" : "intentos"}.`,
+                    "error"
+                );
+
+                return;
+            }
 
             setVerified(true);
             setModalOpen(false);
 
-            notify("Contraseña verificada correctamente.", "success");
+            notify(
+                "Contraseña verificada correctamente.",
+                "success"
+            );
+
         } catch (error) {
             notify(
                 error.message || "No se ha podido verificar la contraseña.",
@@ -227,6 +273,12 @@ function PasswdChange() {
                             para continuar.
                         </p>
 
+                        {intentosFallidos > 0 && (
+                            <p className="change-password-attempts" role="status">
+                                Te quedan {MAX_INTENTOS - intentosFallidos} de {MAX_INTENTOS} intentos.
+                            </p>
+                        )}
+
                         <form onSubmit={handleVerifyPassword}>
                             <label htmlFor="contrasenaActual">
                                 Contraseña actual
@@ -237,6 +289,7 @@ function PasswdChange() {
                                     id="contrasenaActual"
                                     type={verActual ? "text" : "password"}
                                     value={contrasenaActual}
+                                    disabled={bloqueandoVerificacion}
                                     onChange={(e) =>
                                         setContrasenaActual(e.target.value)
                                     }
@@ -261,12 +314,20 @@ function PasswdChange() {
 
                             <button
                                 type="submit"
-                                disabled={loadingVerification}
+                                disabled={loadingVerification || bloqueandoVerificacion}
                                 className="change-password-submit"
                             >
                                 {loadingVerification
                                     ? "Verificando..."
                                     : "Verificar contraseña"}
+                            </button>
+                            <button
+                                type="button"
+                                className="change-password-cancel"
+                                onClick={() => navigate("/perfil")}
+                                disabled={loadingVerification || bloqueandoVerificacion}
+                            >
+                                Volver al perfil
                             </button>
                         </form>
                     </section>

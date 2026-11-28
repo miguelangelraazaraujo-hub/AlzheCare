@@ -70,20 +70,21 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public PasswordVerificationResponse verifyPassword(
-        User user,
-        PasswordVerificationRequest request
-    ) {
-        if (!passwordEncoder.matches(
-            request.contrasenaActual(),
-            user.getContrasenaHash()
-        )) {
-            throw new InvalidCredentialsException();
+            User user,
+            PasswordVerificationRequest request) {
+        boolean verified = passwordEncoder.matches(
+                request.contrasenaActual(),
+                user.getContrasenaHash());
+
+        if (!verified) {
+            return new PasswordVerificationResponse(
+                    false,
+                    "La contraseña actual es incorrecta.");
         }
 
         return new PasswordVerificationResponse(
-            true,
-            "Contraseña verificada correctamente."
-        );
+                true,
+                "Contraseña verificada correctamente.");
     }
 
     @Transactional

@@ -84,6 +84,11 @@ export default function App() {
                     />
 
                     <Route
+                        path="/buscar"
+                        element={<Navigate to="/publico/categorias" replace />}
+                    />
+
+                    <Route
                         path="/publico/resultados"
                         element={<Navigate to="/publico/categorias" replace />}
                     />
