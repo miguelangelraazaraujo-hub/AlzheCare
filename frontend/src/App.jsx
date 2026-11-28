@@ -22,6 +22,7 @@ const Register = lazy(() => import("./pages/auth/Register"));
 
 const PrivateHome = lazy(() => import("./pages/private-home/PrivateHome"));
 const Profile = lazy(() => import("./pages/profile/Profile"));
+const PasswdChange = lazy(() => import("./pages/passwd-change/PasswdChange"));
 const More = lazy(() => import("./pages/more/More"));
 
 function WelcomeRoute() {
@@ -119,6 +120,11 @@ export default function App() {
                             <Route
                                 path="/perfil"
                                 element={<Profile />}
+                            />
+
+                            <Route
+                                path="/cambiar-contrasena"
+                                element={<PasswdChange />}
                             />
 
                             <Route path="/mas" element={<More />} />
